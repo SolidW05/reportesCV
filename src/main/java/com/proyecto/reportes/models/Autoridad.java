@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 
 public class Autoridad {
 
+    //hola buenas noches
     public Integer getIdAutoridad() {
         return idAutoridad;
     }
