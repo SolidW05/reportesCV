@@ -14,6 +14,11 @@ public class Autoridad {
         return idAutoridad;
     }
 
+    //borrar
+    public Integer hola() {
+        return idAutoridad;
+    }
+
     public void setIdAutoridad(Integer idAutoridad) {
         this.idAutoridad = idAutoridad;
     }
