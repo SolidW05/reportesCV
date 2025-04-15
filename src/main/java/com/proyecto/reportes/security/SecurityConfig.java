@@ -26,10 +26,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/api/**").permitAll() // rutas públicas
+                        .requestMatchers("/**").permitAll() // rutas públicas
                         // URL POR ROL, solo si tiene el rol puede acceder a ellas y a sus derivadas como /prueba/...
-                        .requestMatchers("/prueba").hasRole("autoridad")
-                        .requestMatchers("/home").hasRole("usuario")
+//                        .requestMatchers("/prueba").hasRole("autoridad")
+//                        .requestMatchers("/home").hasRole("usuario")
                         .anyRequest().authenticated() // todo lo demás requiere autenticación
                 )
                 .formLogin(form -> form
