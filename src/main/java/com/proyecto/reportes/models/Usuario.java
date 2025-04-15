@@ -3,7 +3,7 @@ package com.proyecto.reportes.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 public class Usuario {
 
     public Integer getIdUsuario() {
@@ -54,6 +54,19 @@ public class Usuario {
         this.curp = curp;
     }
 
+    public boolean isActivo(){
+        return activo;
+    }
+    public void setActivo(boolean activo){
+        this.activo = activo;
+    }
+    public String getTokenVerificacion(){
+        return tokenVerificacion;
+    }
+    public void setTokenVerificacion(String tokenVerificacion){
+        this.tokenVerificacion = tokenVerificacion;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idUsuarios")
@@ -74,6 +87,11 @@ public class Usuario {
 
     @Column(nullable = false, unique = true, length = 18)
     private String curp;
+    @Column (name = "activo")
+    private boolean activo = false;
+
+    @Column(name = "token_Verificacion", length = 255)
+    private String tokenVerificacion;
 
     public  enum TipoUsuario{
         usuario, autoridad
