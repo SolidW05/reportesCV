@@ -27,74 +27,96 @@ GRANT SELECT, UPDATE, INSERT, DELETE ON proyecto.* TO usuarios2;
 -- -----------------------------------------------------
 -- Table `Proyecto`.`Usuarios`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Proyecto`.`Usuarios` ;
+DROP TABLE IF EXISTS `proyecto`.`usuarios` ;
 
-CREATE TABLE IF NOT EXISTS `Proyecto`.`Usuarios` (
+CREATE TABLE IF NOT EXISTS `proyecto`.`usuarios` (
   `idUsuarios` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(120) NOT NULL,
-  `tipo_usuario` ENUM("usuario", "autoridad") NOT NULL,
+  `tipo_usuario` ENUM('usuario', 'autoridad') NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `CURP` VARCHAR(18) NOT NULL,
   PRIMARY KEY (`idUsuarios`),
   UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE,
   UNIQUE INDEX `CURP_UNIQUE` (`CURP` ASC) VISIBLE)
-ENGINE = InnoDB;
-
-ALTER TABLE Usuarios AUTO_INCREMENT = 1000;
+ENGINE = InnoDB
+AUTO_INCREMENT = 1005
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `Proyecto`.`Autoridades`
+-- Table `proyecto`.`municipios`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Proyecto`.`Autoridades` ;
+DROP TABLE IF EXISTS `proyecto`.`municipios` ;
 
-CREATE TABLE IF NOT EXISTS `Proyecto`.`Autoridades` (
+CREATE TABLE IF NOT EXISTS `proyecto`.`municipios` (
+  `idMunicipio` INT NOT NULL AUTO_INCREMENT,
+  `municipio` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`idMunicipio`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 126
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `proyecto`.`autoridades`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyecto`.`autoridades` ;
+
+CREATE TABLE IF NOT EXISTS `proyecto`.`autoridades` (
   `idAutoridades` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `idUsuarios` INT UNSIGNED NOT NULL,
   `Autoridad` VARCHAR(120) NOT NULL,
   `Servicio` VARCHAR(45) NOT NULL,
   `Telefono` VARCHAR(10) NOT NULL,
+  `municipio` INT NULL DEFAULT NULL,
   PRIMARY KEY (`idAutoridades`),
   INDEX `fk_Autoridades_Usuarios_idx` (`idUsuarios` ASC) VISIBLE,
+  INDEX `fk_municipio` (`municipio` ASC) VISIBLE,
   CONSTRAINT `fk_Autoridades_Usuarios`
     FOREIGN KEY (`idUsuarios`)
-    REFERENCES `Proyecto`.`Usuarios` (`idUsuarios`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-ALTER TABLE Autoridades AUTO_INCREMENT = 1000;
+    REFERENCES `proyecto`.`usuarios` (`idUsuarios`),
+  CONSTRAINT `fk_municipio`
+    FOREIGN KEY (`municipio`)
+    REFERENCES `proyecto`.`municipios` (`idMunicipio`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1005
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `Proyecto`.`Ubicacion`
+-- Table `proyecto`.`ubicacion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Proyecto`.`Ubicacion` ;
+DROP TABLE IF EXISTS `proyecto`.`ubicacion` ;
 
-CREATE TABLE IF NOT EXISTS `Proyecto`.`Ubicacion` (
+CREATE TABLE IF NOT EXISTS `proyecto`.`ubicacion` (
   `idUbicacion` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `calle` VARCHAR(80) NOT NULL,
   `Num` VARCHAR(10) NOT NULL,
   `colonia` VARCHAR(45) NOT NULL,
   `codigoPostal` VARCHAR(8) NOT NULL,
-  `Estado` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idUbicacion`))
-ENGINE = InnoDB;
-ALTER TABLE Ubicacion AUTO_INCREMENT = 1000;
+  `municipio` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`idUbicacion`),
+  INDEX `fk_ubicacion_municipio` (`municipio` ASC) VISIBLE,
+  CONSTRAINT `fk_ubicacion_municipio`
+    FOREIGN KEY (`municipio`)
+    REFERENCES `proyecto`.`municipios` (`idMunicipio`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1005
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `Proyecto`.`Reportes`
+-- Table `proyecto`.`reportes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Proyecto`.`Reportes` ;
+DROP TABLE IF EXISTS `proyecto`.`reportes` ;
 
-CREATE TABLE IF NOT EXISTS `Proyecto`.`Reportes` (
+CREATE TABLE IF NOT EXISTS `proyecto`.`reportes` (
   `idReportes` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Descripcion` VARCHAR(200) NOT NULL,
-  `Estado` ENUM("Pendiente", "Revision", 'Proceso', "Terminado") NOT NULL,
+  `Estado` ENUM('Pendiente', 'Revision', 'Proceso', 'Terminado') NOT NULL,
   `Fecha_Reporte` DATE NOT NULL,
-  `Foto` BLOB NULL,
-  `Tipo_de_problema` VARCHAR(50) NOT NULL,
+  `Foto` BLOB NULL DEFAULT NULL,
   `idUbicacion` INT UNSIGNED NOT NULL,
   `idUsuarios` INT UNSIGNED NOT NULL,
   `idAutoridades` INT UNSIGNED NOT NULL,
@@ -102,61 +124,46 @@ CREATE TABLE IF NOT EXISTS `Proyecto`.`Reportes` (
   INDEX `fk_Reportes_Ubicacion1_idx` (`idUbicacion` ASC) VISIBLE,
   INDEX `fk_Reportes_Usuarios1_idx` (`idUsuarios` ASC) VISIBLE,
   INDEX `fk_Reportes_Autoridades1_idx` (`idAutoridades` ASC) VISIBLE,
-  CONSTRAINT `fk_Reportes_Ubicacion1`
-    FOREIGN KEY (`idUbicacion`)
-    REFERENCES `Proyecto`.`Ubicacion` (`idUbicacion`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Reportes_Usuarios1`
-    FOREIGN KEY (`idUsuarios`)
-    REFERENCES `Proyecto`.`Usuarios` (`idUsuarios`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Reportes_Autoridades1`
     FOREIGN KEY (`idAutoridades`)
-    REFERENCES `Proyecto`.`Autoridades` (`idAutoridades`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `proyecto`.`autoridades` (`idAutoridades`),
+  CONSTRAINT `fk_Reportes_Ubicacion1`
+    FOREIGN KEY (`idUbicacion`)
+    REFERENCES `proyecto`.`ubicacion` (`idUbicacion`),
+  CONSTRAINT `fk_Reportes_Usuarios1`
+    FOREIGN KEY (`idUsuarios`)
+    REFERENCES `proyecto`.`usuarios` (`idUsuarios`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1005
+DEFAULT CHARACTER SET = utf8mb3;
 
-ALTER TABLE Reportes AUTO_INCREMENT = 1000;
-
-USE `Proyecto` ;
-
--- -----------------------------------------------------
--- Placeholder table for view `Proyecto`.`vw_CatalogoAutoridades`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Proyecto`.`vw_CatalogoAutoridades` (`idAutoridades` INT, `Autoridad` INT, `Servicio` INT, `Telefono` INT, `Encargado` INT);
-
--- -----------------------------------------------------
--- Placeholder table for view `Proyecto`.`vw_ReportesCompletos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Proyecto`.`vw_ReportesCompletos` (`idReportes` INT, `Descripcion` INT, `Estado` INT, `Fecha_Reporte` INT, `Tipo_de_problema` INT, `calle` INT, `Num` INT);
+USE `proyecto` ;
 
 -- -----------------------------------------------------
--- View `Proyecto`.`vw_CatalogoAutoridades`
+-- Placeholder table for view `proyecto`.`vw_catalogoautoridades`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Proyecto`.`vw_CatalogoAutoridades`;
-DROP VIEW IF EXISTS `Proyecto`.`vw_CatalogoAutoridades` ;
-USE `Proyecto`;
-CREATE  OR REPLACE VIEW vw_CatalogoAutoridades AS
-SELECT au.idAutoridades, au.Autoridad, au.Servicio, au.Telefono, u.Nombre AS Encargado
-FROM Autoridades AS au
-JOIN Usuarios AS u ON u.idUsuarios = au.idUsuarios;
+CREATE TABLE IF NOT EXISTS `proyecto`.`vw_catalogoautoridades` (`idAutoridades` INT, `Autoridad` INT, `Servicio` INT, `Telefono` INT, `Encargado` INT);
 
 -- -----------------------------------------------------
--- View `Proyecto`.`vw_ReportesCompletos`
+-- Placeholder table for view `proyecto`.`vw_reportescompletos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Proyecto`.`vw_ReportesCompletos`;
-DROP VIEW IF EXISTS `Proyecto`.`vw_ReportesCompletos` ;
-USE `Proyecto`;
-CREATE  OR REPLACE VIEW vw_ReportesCompletos AS
-SELECT r.idReportes, r.Descripcion, r.Estado, r.Fecha_Reporte, 
-       r.Tipo_de_problema, 
-       ub.calle, ub.Num
-FROM Reportes r
-JOIN Usuarios u ON r.idUsuarios = u.idUsuarios
-JOIN Ubicacion ub ON r.idUbicacion = ub.idUbicacion;
+CREATE TABLE IF NOT EXISTS `proyecto`.`vw_reportescompletos` (`idReportes` INT, `Descripcion` INT, `Estado` INT, `Fecha_Reporte` INT, `Tipo_de_problema` INT, `calle` INT, `Num` INT);
+
+-- -----------------------------------------------------
+-- View `proyecto`.`vw_catalogoautoridades`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyecto`.`vw_catalogoautoridades`;
+DROP VIEW IF EXISTS `proyecto`.`vw_catalogoautoridades` ;
+USE `proyecto`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `proyecto`.`vw_catalogoautoridades` AS select `au`.`idAutoridades` AS `idAutoridades`,`au`.`Autoridad` AS `Autoridad`,`au`.`Servicio` AS `Servicio`,`au`.`Telefono` AS `Telefono`,`u`.`Nombre` AS `Encargado` from (`proyecto`.`autoridades` `au` join `proyecto`.`usuarios` `u` on((`u`.`idUsuarios` = `au`.`idUsuarios`)));
+
+-- -----------------------------------------------------
+-- View `proyecto`.`vw_reportescompletos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyecto`.`vw_reportescompletos`;
+DROP VIEW IF EXISTS `proyecto`.`vw_reportescompletos` ;
+USE `proyecto`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `proyecto`.`vw_reportescompletos` AS select `r`.`idReportes` AS `idReportes`,`r`.`Descripcion` AS `Descripcion`,`r`.`Estado` AS `Estado`,`r`.`Fecha_Reporte` AS `Fecha_Reporte`,`proyecto`.`r`.`Tipo_de_problema` AS `Tipo_de_problema`,`proyecto`.`ub`.`calle` AS `calle`,`proyecto`.`ub`.`Num` AS `Num` from ((`proyecto`.`reportes` `r` join `proyecto`.`usuarios` `u` on((`proyecto`.`r`.`idUsuarios` = `proyecto`.`u`.`idUsuarios`))) join `proyecto`.`ubicacion` `ub` on((`proyecto`.`r`.`idUbicacion` = `proyecto`.`ub`.`idUbicacion`)));
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

@@ -16,6 +16,7 @@ public class ReporteControlador {
 
     @GetMapping
     public List<Reporte> reporteList(){
+
         return reporteServicio.obtenerReportes();
     }
 

@@ -1,0 +1,9 @@
+quitar de la tabla de reportes el tipo de problema
+
+*El tipo de problema a escoger debe ser la columna de servicios
+*ponerle al formulario municipio
+*autoridad
+
+*Agregarle al formulario dos tablas
+*una tabla con todos los reportes hechos
+*una tabla con los reportes hechos por el propio usuario;

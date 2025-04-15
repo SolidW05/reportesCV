@@ -46,14 +46,6 @@ public class Reporte {
         this.foto = foto;
     }
 
-    public String getTipoDeProblema() {
-        return tipoDeProblema;
-    }
-
-    public void setTipoDeProblema(String tipoDeProblema) {
-        this.tipoDeProblema = tipoDeProblema;
-    }
-
     public Ubicacion getUbicacion() {
         return ubicacion;
     }
@@ -96,9 +88,6 @@ public class Reporte {
     @Lob
     private byte[] foto;
 
-    @Column(name = "Tipo_de_problema", nullable = false, length = 50)
-    private String tipoDeProblema;
-
     @ManyToOne
     @JoinColumn(name = "idUbicacion", nullable = false)
     private Ubicacion ubicacion;
@@ -107,7 +96,7 @@ public class Reporte {
     @JoinColumn(name = "idUsuarios", nullable = false)
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "idAutoridades", nullable = false)
     private Autoridad autoridad;
 
