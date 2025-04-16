@@ -29,4 +29,9 @@ public class IndexControlador {
     public String prueba(){
         return "prueba";
     }
+
+    @GetMapping("/hola")
+    public String hola(){
+        return "hola";
+    }
 }

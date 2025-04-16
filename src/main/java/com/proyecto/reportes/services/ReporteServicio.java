@@ -1,6 +1,7 @@
 package com.proyecto.reportes.services;
 
 import com.proyecto.reportes.models.DTO.ReporteCrearDTO;
+import com.proyecto.reportes.models.DTO.ReporteRespuestaDTO;
 import com.proyecto.reportes.models.Reporte;
 import com.proyecto.reportes.models.Usuario;
 import com.proyecto.reportes.repositories.ReporteRepositorio;
@@ -20,7 +21,16 @@ public class ReporteServicio {
         return reporteRepositorio.findAll();
     }
 
+    public List<ReporteRespuestaDTO> reportesLimpios(){
+        return reporteRepositorio.obtenerReportesReducidos();
+    }
+
+    public List<ReporteRespuestaDTO> reportesPorUsuario(Integer idUsuario){
+        return reporteRepositorio.obtenerReportesPorUsuario(idUsuario);
+    }
+
     public Reporte encontrarDatos(ReporteCrearDTO reporteDTO){
+
         return new Reporte();
     }
     public Reporte crearReporte(Reporte nuevoReporte){
