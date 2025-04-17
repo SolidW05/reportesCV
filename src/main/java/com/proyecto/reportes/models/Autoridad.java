@@ -1,13 +1,9 @@
 package com.proyecto.reportes.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-
 
 @Entity
 @Table(name = "Autoridades")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
 public class Autoridad {
 
     public Integer getIdAutoridad() {
@@ -49,6 +45,15 @@ public class Autoridad {
         this.telefono = telefono;
     }
 
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idAutoridades")
@@ -66,5 +71,9 @@ public class Autoridad {
 
     @Column(nullable = false, length = 10)
     private String telefono;
+
+    @ManyToOne
+    @JoinColumn(name = "municipio")
+    private Municipio municipio;
 
 }

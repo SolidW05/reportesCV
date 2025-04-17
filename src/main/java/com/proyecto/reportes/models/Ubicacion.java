@@ -44,12 +44,12 @@ public class Ubicacion {
         this.codigoPostal = codigoPostal;
     }
 
-    public String getEstado() {
+    public Municipio getMunicipio() {
         return municipio;
     }
 
-    public void setEstado(String estado) {
-        this.municipio = estado;
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
     }
 
     @Id
@@ -68,6 +68,7 @@ public class Ubicacion {
     @Column(nullable = false, length = 8)
     private String codigoPostal;
 
-    @Column(nullable = false, length = 45)
-    private String municipio;
+    @ManyToOne
+    @JoinColumn(name = "municipio")
+    private Municipio municipio;
 }

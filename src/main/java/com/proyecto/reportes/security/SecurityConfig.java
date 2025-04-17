@@ -30,8 +30,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/**").permitAll() // rutas públicas
                         // URL POR ROL, solo si tiene el rol puede acceder a ellas y a sus derivadas como /prueba/...
-                        .requestMatchers("/prueba").hasRole("autoridad")
-                        .requestMatchers("/home").hasRole("usuario")
+//                        .requestMatchers("/prueba").hasRole("autoridad")
+//                        .requestMatchers("/home").hasRole("usuario")
                         .anyRequest().authenticated() // todo lo demás requiere autenticación
                 )
                 .formLogin(form -> form

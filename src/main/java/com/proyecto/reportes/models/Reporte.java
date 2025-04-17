@@ -96,7 +96,7 @@ public class Reporte {
     @JoinColumn(name = "idUsuarios", nullable = false)
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "idAutoridades", nullable = false)
     private Autoridad autoridad;
 

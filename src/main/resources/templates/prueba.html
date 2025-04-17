@@ -39,27 +39,24 @@
                 // Aquí puedes personalizar cómo se muestran los datos en la tabla
                 const fila = document.createElement('tr');
                 fila.innerHTML = `
-                    <td>${item.tipoDeProblema}</td>
                     <td>${item.descripcion}</td>
                     <td>${item.estado}</td>
                     <td>${item.fechaReporte}</td>
                     <td>${item.ubicacion.colonia}</td>
                     <td>${item.ubicacion.calle}</td>
                     <td>${item.ubicacion.numero}</td>
-                    <td>${item.ubicacion.estado}</td>
+                    <td>${item.ubicacion.municipio.}</td>
                     <td>${item.autoridad.autoridad}</td>
                     <td>${item.autoridad.usuario.nombre}</td>
                     <td>${item.autoridad.telefono}</td>
                 `;
-                fila.id= item.idReporte;
+                fila.id = item.idReporte;
                 cuerpoTabla.appendChild(fila);
             });
         })
-
         .catch(error => console.error('Error al cargar los datos:', error));
 
     }
     window.onload = cargarDatos;
-
 </script>
 </html>
