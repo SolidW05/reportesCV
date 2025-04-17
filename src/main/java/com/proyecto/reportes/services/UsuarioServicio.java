@@ -27,7 +27,6 @@ public class UsuarioServicio {
        usuario.setNombre(dto.getNombre());
        usuario.setEmail(dto.getCorreo());
        usuario.setPassword(dto.getPassword());
-       usuario.setActivo(false);
        usuario.setTokenVerificacion(UUID.randomUUID().toString());
        usuario.setCurp(dto.getCurp());
 

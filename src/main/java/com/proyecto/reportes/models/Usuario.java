@@ -77,7 +77,7 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_usuario", nullable = false)
-    private TipoUsuario tipoUsuario;
+    private TipoUsuario tipoUsuario = TipoUsuario.usuario;
 
     @Column(nullable = false, unique = true, length = 255)
     private String email;
