@@ -36,11 +36,13 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`usuarios` (
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `CURP` VARCHAR(18) NOT NULL,
+  `activo` TINYINT(1) NULL DEFAULT NULL,
+  `token_Verificacion` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idUsuarios`),
   UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE,
   UNIQUE INDEX `CURP_UNIQUE` (`CURP` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1005
+AUTO_INCREMENT = 1019
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -80,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`autoridades` (
     FOREIGN KEY (`municipio`)
     REFERENCES `proyecto`.`municipios` (`idMunicipio`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1005
+AUTO_INCREMENT = 1011
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -137,33 +139,6 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1005
 DEFAULT CHARACTER SET = utf8mb3;
 
-USE `proyecto` ;
-
--- -----------------------------------------------------
--- Placeholder table for view `proyecto`.`vw_catalogoautoridades`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `proyecto`.`vw_catalogoautoridades` (`idAutoridades` INT, `Autoridad` INT, `Servicio` INT, `Telefono` INT, `Encargado` INT);
-
--- -----------------------------------------------------
--- Placeholder table for view `proyecto`.`vw_reportescompletos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `proyecto`.`vw_reportescompletos` (`idReportes` INT, `Descripcion` INT, `Estado` INT, `Fecha_Reporte` INT, `Tipo_de_problema` INT, `calle` INT, `Num` INT);
-
--- -----------------------------------------------------
--- View `proyecto`.`vw_catalogoautoridades`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `proyecto`.`vw_catalogoautoridades`;
-DROP VIEW IF EXISTS `proyecto`.`vw_catalogoautoridades` ;
-USE `proyecto`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `proyecto`.`vw_catalogoautoridades` AS select `au`.`idAutoridades` AS `idAutoridades`,`au`.`Autoridad` AS `Autoridad`,`au`.`Servicio` AS `Servicio`,`au`.`Telefono` AS `Telefono`,`u`.`Nombre` AS `Encargado` from (`proyecto`.`autoridades` `au` join `proyecto`.`usuarios` `u` on((`u`.`idUsuarios` = `au`.`idUsuarios`)));
-
--- -----------------------------------------------------
--- View `proyecto`.`vw_reportescompletos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `proyecto`.`vw_reportescompletos`;
-DROP VIEW IF EXISTS `proyecto`.`vw_reportescompletos` ;
-USE `proyecto`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `proyecto`.`vw_reportescompletos` AS select `r`.`idReportes` AS `idReportes`,`r`.`Descripcion` AS `Descripcion`,`r`.`Estado` AS `Estado`,`r`.`Fecha_Reporte` AS `Fecha_Reporte`,`proyecto`.`r`.`Tipo_de_problema` AS `Tipo_de_problema`,`proyecto`.`ub`.`calle` AS `calle`,`proyecto`.`ub`.`Num` AS `Num` from ((`proyecto`.`reportes` `r` join `proyecto`.`usuarios` `u` on((`proyecto`.`r`.`idUsuarios` = `proyecto`.`u`.`idUsuarios`))) join `proyecto`.`ubicacion` `ub` on((`proyecto`.`r`.`idUbicacion` = `proyecto`.`ub`.`idUbicacion`)));
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
