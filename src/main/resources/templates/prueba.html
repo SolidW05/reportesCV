@@ -6,57 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-<table id="tabla">
-    <thead>
-    <th>Tipo de problema</th>
-    <th>descripcion</th>
-    <th>estado</th>
-    <th>fecha</th>
-    <th>colonia</th>
-    <th>calle</th>
-    <th>numero</th>
-    <th>municipio</th>
-    <th>Autoridad</th>
-    <th>Encargado</th>
-    <th>telefono</th>
-    </thead>
-    <tbody id="cuerpoTabla">
-        <tr>
-            <td colspan="11">Cargando datos...</td>
-        </tr>
-    </tbody>
-</table>
-</body>
-<script>
-    function cargarDatos(){
-        fetch('http://localhost:7512/api/reporte')
-        .then(response => response.json())
-        .then(data => {
-            const cuerpoTabla = document.getElementById('cuerpoTabla');
-            cuerpoTabla.innerHTML = ''; // Limpiar el contenido previo
-            data.forEach(item => {
-                // Crear una nueva fila y agregarla al cuerpo de la tabla
-                // Aquí puedes personalizar cómo se muestran los datos en la tabla
-                const fila = document.createElement('tr');
-                fila.innerHTML = `
-                    <td>${item.descripcion}</td>
-                    <td>${item.estado}</td>
-                    <td>${item.fechaReporte}</td>
-                    <td>${item.ubicacion.colonia}</td>
-                    <td>${item.ubicacion.calle}</td>
-                    <td>${item.ubicacion.numero}</td>
-                    <td>${item.ubicacion.municipio.}</td>
-                    <td>${item.autoridad.autoridad}</td>
-                    <td>${item.autoridad.usuario.nombre}</td>
-                    <td>${item.autoridad.telefono}</td>
-                `;
-                fila.id = item.idReporte;
-                cuerpoTabla.appendChild(fila);
-            });
-        })
-        .catch(error => console.error('Error al cargar los datos:', error));
+    <h1 th:text="'Hola, ' + ${nombre}">></h1>
 
-    }
-    window.onload = cargarDatos;
-</script>
+</body>
 </html>

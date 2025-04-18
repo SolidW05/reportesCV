@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Info</title>
+    <link rel="stylesheet" href="css/stylePgs.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar section-content">
+        <a href="#" class="nav-logo">
+          <h2 class="logo-text">Reportes</h2>
+        </a>
+        <ul class="nav-menu">
+          <button id="menu-close-button" class="fas fa-times"></button>
+          <li class="nav-item">
+            <a href="#contact" class="nav-link">Reporte</a>
+          </li>
+        </ul>
+        <button id="menu-open-button" class="fas fa-bars"></button>
+      </nav>
+    </header>
+    <main>
+      <section class="hero-section">
+        <div class="section-content">
+          <div class="hero-details">
+            <h2 class="title" th:text="'Hola, ' + ${nombre}">></h2>
+            <h3 class="subtitle">Comienza A reportar</h3>
+            <p class="description">
+              Cada reporte se mostrara en este apartado, y podras ver en que
+              estado se encuentra mediante una tabla generada por la pagina.
+            </p>
+          </div>
+          <div class="hero-image-wrapper">
+            <img src="images/RCP copy.png" alt="hero" class="hero-imagen" />
+          </div>
+        </div>
+      </section>
+      <!-- formulario Section -->
+      <section class="contact-section" id="contact">
+        <h2 class="section-title">Reporte</h2>
+        <div class="section-content">
+          <form id="formulario-reporte" action="#" class="contact-form">
+            <label for="Tipo">Tipo de problema:</label>
+            <select id="servicio" class="form-input">
+              <option value="">Seleccione el tipo</option>
+            </select>
+            <label for="Tipo">municipio</label>
+            <select name="" id="municipio" class="form-input">
+              <option value="">Seleccione el municipio</option>
+            </select>
+            <label for="Tipo">Autoridad</label>
+            <select name="" id="autoridad" class="form-input">
+              <option value="">Seleccione la autoridad</option>
+            </select>
+            <label for="Fecha">Fecha</label>
+            <input
+              type="date"
+              name="fecha"
+              id="fecha"
+              placeholder="Fecha"
+              class="form-input"
+            />
+            <label for="colonia">Colonia:</label>
+            <input
+              type="text"
+              name="colonia"
+              id="colonia"
+              placeholder="Colonia"
+              class="form-input"
+            />
+            <label for="calle">Calle: </label>
+            <input
+              type="text"
+              name="calle"
+              id="calle"
+              placeholder="Calle"
+              class="form-input"
+            />
+            <label for="detalles">Detalles</label>
+            <textarea
+              class="form-input"
+              name="Detalles"
+              id="detalles"
+              placeholder="detalles"
+            ></textarea>
+            <button type="submit" class="submit-button">Enviar</button>
+          </form>
+        </div>
+      </section>
+      <section id="tabla-reporte" style="display: none" class="section-content">
+        <h2 class="section-title">Reportes Generados</h2>
+        <table id="tabla-dinamica" class="reporte-tabla">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Municipio</th>
+              <th>Autoridad</th>
+              <th>Fecha</th>
+              <th>Colonia</th>
+              <th>Calle</th>
+              <th>Detalles</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+      <!-- Footer -->
+      <footer class="footer-section">
+        <div class="section-content">
+          <p class="copyright-text">Centro Universitario De Tonala</p>
+          <div class="social-link-list">
+            <p>www.pagina.com</p>
+          </div>
+          <p class="policy-text">
+            <a href="#" class="policy-link">Telefono</a>
+            <span class="separator">.</span>
+            <a href="#" class="policy-link">Correo</a>
+          </p>
+        </div>
+      </footer>
+    </main>
+    <script src="js/scriptRpt.js"></script>
+    <script src="js/scriptGetMunicipios.js"></script>
+    <script src="js/scriptGetAutoridades.js"></script>
+    <script src="js/scriptGetServicios.js"></script>
+  </body>
+</html>

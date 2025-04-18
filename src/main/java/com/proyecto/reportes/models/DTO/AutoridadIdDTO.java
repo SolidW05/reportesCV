@@ -2,9 +2,9 @@ package com.proyecto.reportes.models.DTO;
 
 public class AutoridadIdDTO {
 
-    public AutoridadIdDTO(Integer id, String encargado) {
+    public AutoridadIdDTO(Integer id, String autoridad) {
         this.id = id;
-        this.encargado = encargado;
+        this.autoridad = autoridad;
     }
 
     public Integer getId() {
@@ -15,14 +15,14 @@ public class AutoridadIdDTO {
         this.id = id;
     }
 
-    public String getEncargado() {
-        return encargado;
+    public String getAutoridad() {
+        return autoridad;
     }
 
-    public void setEncargado(String encargado) {
-        this.encargado = encargado;
+    public void setAutoridad(String autoridad) {
+        this.autoridad = autoridad;
     }
 
     private Integer id;
-    private String encargado;
+    private String autoridad;
 }

@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio De Sesion</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/stylesLgn.css" />
   </head>
   <body>
     <div class="container">
       <div class="container-form">
-        <form method="post" class="sign-in">
+        <form class="sign-in" method="post" action="/login">
           <h2>Iniciar sesion</h2>
           <div class="social-networks">
             <ion-icon name="logo-twitter" style="color: aqua"></ion-icon>
@@ -20,18 +20,31 @@
           <span>Use su correo y contraseña</span>
           <div class="container-input">
             <ion-icon name="mail-outline"></ion-icon>
-            <input name="username" type="text" placeholder="Email" />
+            <input type="text" placeholder="Email" name="username" required />
           </div>
           <div class="container-input">
             <ion-icon name="lock-closed-outline"></ion-icon>
-            <input name="password" type="password" placeholder="password" />
+            <input
+              id="password"
+              type="password"
+              placeholder="password"
+              name="password"
+              required
+            />
           </div>
           <a href="#">Olvidaste tu contraseña? </a>
-          <button class="button">Iniciar Sesion</button>
+          <button class="button" type="submit">Iniciar Sesion</button>
+          <button
+            onclick="window.location.href='/'"
+            class="button"
+            id="regresar"
+          >
+            Regresar
+          </button>
         </form>
       </div>
       <div class="container-form">
-        <form class="sign-up">
+        <form class="sign-up" method="post">
           <h2>Registrarse</h2>
           <div class="social-networks">
             <ion-icon name="logo-twitter" style="color: aqua"></ion-icon>
@@ -50,15 +63,15 @@
           </div>
           <div class="container-input">
             <ion-icon name="person-outline"></ion-icon>
-            <input type="text" placeholder="User" />
+            <input type="text" id="user" placeholder="User" required />
           </div>
           <div class="container-input">
             <ion-icon name="mail-outline"></ion-icon>
-            <input type="text" placeholder="Email" />
+            <input type="text" placeholder="Email" required />
           </div>
           <div class="container-input">
             <ion-icon name="lock-closed-outline"></ion-icon>
-            <input type="password" placeholder="password" />
+            <input type="password" placeholder="password" required />
           </div>
           <button class="button">Registrarse</button>
           <div id="registro-exitoso" class="mensaje-exito">
@@ -84,7 +97,7 @@
       </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="js/scriptLgn.js"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

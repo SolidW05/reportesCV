@@ -28,15 +28,17 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**").permitAll() // rutas públicas
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/login", "/api/usuarios/registro", "/api/usuarios/verificar", "/**").permitAll() // rutas públicas
                         // URL POR ROL, solo si tiene el rol puede acceder a ellas y a sus derivadas como /prueba/...
-//                        .requestMatchers("/prueba").hasRole("autoridad")
-//                        .requestMatchers("/home").hasRole("usuario")
+                        .requestMatchers("/usuario/home", "/api/**").hasRole("autoridad")
+                        .requestMatchers("/usuario/home", "/api/**").hasRole("usuario")
                         .anyRequest().authenticated() // todo lo demás requiere autenticación
                 )
                 .formLogin(form -> form
-                        // permite redireccionar
+                        .loginPage("/login") // tu propia vista de login
                         .successHandler(customSuccessHandler)
+                        .failureUrl("/login?error")
                         .permitAll()
                 )
                 .logout(logout -> logout

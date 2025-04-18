@@ -12,7 +12,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/stylePgs.css" />
   </head>
   <body>
     <!-- HEADER / NAVBAR-->
@@ -24,7 +24,7 @@
         <ul class="nav-menu">
           <button id="menu-close-button" class="fas fa-times"></button>
           <li class="nav-item">
-            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Inicio</a>
           </li>
           <li class="nav-item">
             <a href="#about" class="nav-link">Descripcion</a>
@@ -38,9 +38,12 @@
           <li class="nav-item">
             <a href="#gallery" class="nav-link">Tipos</a>
           </li>
-          <li class="nav-item">
-            <a href="#contact" class="nav-link">Reporte</a>
+          <li onclick="window.location.href='Login.html'" class="nav-item">
+            <a class="nav-link">Iniciar Sesion</a>
           </li>
+          <!-- <li class="nav-item">
+            <a href="#contact" class="nav-link">Reporte</a>
+          </li> -->
         </ul>
         <button id="menu-open-button" class="fas fa-bars"></button>
       </nav>
@@ -51,15 +54,15 @@
       <section class="hero-section">
         <div class="section-content">
           <div class="hero-details">
-            <h2 class="title" th:text = "${nombre}"></h2>
+            <h2 class="title">Nombre-Pagina</h2>
             <h3 class="subtitle">Comunidad unidad.</h3>
             <p class="description">
               Dicho proposito es que la comunidad pueda reportar problemas
               dentro de su comunidad, y que las autoridades correspondientes
             </p>
             <div class="buttons">
-              <a href="#" class="button orden-now">Order Now</a>
-              <a href="#" class="button contact-us">Contact us</a>
+              <a href="Login.html" class="button orden-now">Iniciar Sesion</a>
+              <!-- <a href="#" class="button contact-us">Contact us</a> -->
             </div>
           </div>
           <div class="hero-image-wrapper">
@@ -138,42 +141,6 @@
                 efectos en todo el planeta.
               </p>
             </li>
-            <!-- <li class="menu-item">
-              <img
-                src="images/special-combo.png"
-                alt="Special Combo"
-                class="menu-image"
-              />
-              <h3 class="name">Special Combo</h3>
-              <p class="text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Dolores, tenetur.
-              </p>
-            </li>
-            <li class="menu-item">
-              <img
-                src="images/desserts.png"
-                alt="Desserts"
-                class="menu-image"
-              />
-              <h3 class="name">Desserts</h3>
-              <p class="text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Dolores, tenetur.
-              </p>
-            </li>
-            <li class="menu-item">
-              <img
-                src="images/burger-frenchfries.png"
-                alt="burger and french fries"
-                class="menu-image"
-              />
-              <h3 class="name">Burger and french fries</h3>
-              <p class="text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Dolores, tenetur.
-              </p>
-            </li> -->
           </ul>
         </div>
       </section>
@@ -249,117 +216,14 @@
             <li class="gallery-item">
               <img src="images/agua.jpg" alt="Gallery" class="gallery-image" />
             </li>
-            <!-- <li class="gallery-item">
-              <img
-                src="images/gallery-4.jpg"
-                alt="Gallery"
-                class="gallery-image"
-              />
-            </li>
-            <li class="gallery-item">
-              <img
-                src="images/gallery-5.jpg"
-                alt="Gallery"
-                class="gallery-image"
-              />
-            </li>
-            <li class="gallery-item">
-              <img
-                src="images/gallery-6.jpg"
-                alt="Gallery"
-                class="gallery-image"
-              />
-            </li> -->
           </ul>
         </div>
       </section>
 
-      <!-- Contact Section -->
-      <section class="contact-section" id="contact">
-        <h2 class="section-title">Reporte</h2>
-        <div class="section-content">
-          <ul class="contact-info-list">
-            <li class="contact-info">
-              <i class="fa-solid fa-location-crosshairs"></i>
-              <p>Centro Universitario de Tonalá</p>
-            </li>
-            <li class="contact-info">
-              <i class="fa-solid fa-phone"></i>
-              <p>3320189929</p>
-            </li>
-            <li class="contact-info">
-              <i class="fa-regular fa-envelope"></i>
-              <p>username@gmail.com</p>
-            </li>
-            <li class="contact-info">
-              <i class="fa-solid fa-clock"></i>
-              <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
-            </li>
-            <li class="contact-info">
-              <i class="fa-solid fa-clock"></i>
-              <p>Sunday: Closed</p>
-            </li>
-            <li class="contact-info">
-              <i class="fa-solid fa-globe"></i>
-              <p>www.pagina.com</p>
-            </li>
-          </ul>
-          <form action="#" class="contact-form">
-            <label for="Tipo">Tipo de problema:</label>
-            <select name="" id="" class="form-input">
-              <option value="">Seleccione el tipo</option>
-              <option value="Basura">Basura</option>
-              <option value="Agua">Agua</option>
-              <option value="Electricidad">Electricidad</option>
-              <option value="Otros">Otros</option>
-            </select>
-            <label for="nombre">Nombre Completo: </label>
-            <input
-              type="text"
-              name="nombre"
-              id="nombre"
-              placeholder="Nombre Completo"
-              class="form-input"
-            />
-            <label for="Fecha">Fecha</label>
-            <input
-              type="date"
-              name="fecha"
-              id="fecha"
-              placeholder="Fecha"
-              class="form-input"
-            />
-            <label for="colonia">Colonia:</label>
-            <input
-              type="text"
-              name="colonia"
-              id="colonia"
-              placeholder="Colonia"
-              class="form-input"
-            />
-            <label for="calle">Calle: </label>
-            <input
-              type="text"
-              name="calle"
-              id="calle"
-              placeholder="Calle"
-              class="form-input"
-            />
-            <label for="detalles">Detalles</label>
-            <textarea
-              class="form-input"
-              name="Detalles"
-              id="detalles"
-              placeholder="detalles"
-            ></textarea>
-            <button class="submit-button">Enviar</button>
-          </form>
-        </div>
-      </section>
       <!-- Footer -->
       <footer class="footer-section">
         <div class="section-content">
-          <p class="copyright-text">2025. All rights reserved.</p>
+          <p class="copyright-text">@2025. All rights reserved.</p>
           <div class="social-link-list">
             <a href="#" class="social-link"
               ><i class="fa-brands fa-facebook"></i
@@ -380,6 +244,6 @@
       </footer>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/scriptPgs.js"></script>
   </body>
 </html>

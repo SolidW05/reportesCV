@@ -30,7 +30,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                                         Authentication authentication) throws IOException, ServletException {
 
         // Obtener los roles del usuario
-        Collection<? extends SimpleGrantedAuthority> authorities = (Collection<? extends SimpleGrantedAuthority>) authentication.getAuthorities();
+        Collection<? extends SimpleGrantedAuthority> authorities =
+                (Collection<? extends SimpleGrantedAuthority>) authentication.getAuthorities();
         String redirectUrl = "/default";
 
         // Obtener nombre y ID
@@ -39,17 +40,18 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         Usuario usuario = usuarioRepositorio.findByEmail(email).orElseThrow(()
                 -> new UsernameNotFoundException("Usuario no encontrado"));
 
+        UsuarioSesionDTO dto = new UsuarioSesionDTO(usuario.getNombre(),
+                usuario.getIdUsuario(), usuario.getTipoUsuario());
+        session.setAttribute("usuarioSesion", dto);
 
         // esto se tiene que modificar para redireccionar a los respectivos url
         for (GrantedAuthority auth : authorities) {
             String rol = auth.getAuthority();
 
             if (rol.equals("ROLE_autoridad")) {
-                redirectUrl = "/prueba";
+                redirectUrl = "/home";
                 break;
             } else if (rol.equals("ROLE_usuario")) {
-                UsuarioSesionDTO dto = new UsuarioSesionDTO(usuario.getNombre(), usuario.getIdUsuario());
-                session.setAttribute("usuarioSesion", dto);
                 redirectUrl = "/home";
                 break;
             }

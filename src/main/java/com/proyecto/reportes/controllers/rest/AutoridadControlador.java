@@ -34,7 +34,8 @@ public class AutoridadControlador {
     public List<AutoridadIdDTO> autoridadesSortByMunicipioServicio(
             @PathVariable Integer id,
             @PathVariable String servicio
-    ){
+    )
+    {
         return autoridadServicio.autoridadSortByMunicipioServicio(id,servicio);
     }
 
