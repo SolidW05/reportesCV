@@ -21,7 +21,7 @@ public class IndexControlador {
     public String home(HttpSession session, Model model){
         UsuarioSesionDTO usuarioSesionDTO = (UsuarioSesionDTO) session.getAttribute("usuarioSesion");
         // se inyectan los valores obtenidos con model
-        model.addAttribute("nombre", usuarioSesionDTO.getNombre());
+        model.addAttribute("usuario", usuarioSesionDTO);
 
         if (usuarioSesionDTO.getTipoUsuario() == Usuario.TipoUsuario.usuario){
             return "Reportes";

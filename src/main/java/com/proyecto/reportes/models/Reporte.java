@@ -80,7 +80,7 @@ public class Reporte {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private EstadoReporte estado;
+    private EstadoReporte estado = EstadoReporte.Pendiente;
 
     @Column(name = "Fecha_Reporte", nullable = false)
     private LocalDate fechaReporte;

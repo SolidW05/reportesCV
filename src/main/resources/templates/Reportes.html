@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Info</title>
     <link rel="stylesheet" href="css/stylePgs.css" />
+    <link rel="stylesheet" href="css/stylePopup.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
   </head>
-  <body>
+  <body th:data-id="${usuario.id}">
     <header>
       <nav class="navbar section-content">
         <a href="#" class="nav-logo">
@@ -29,7 +30,7 @@
       <section class="hero-section">
         <div class="section-content">
           <div class="hero-details">
-            <h2 class="title" th:text="'Hola, ' + ${nombre}">></h2>
+            <h2 class="title" th:text="'Hola, ' + ${usuario.nombre}">></h2>
             <h3 class="subtitle">Comienza A reportar</h3>
             <p class="description">
               Cada reporte se mostrara en este apartado, y podras ver en que
@@ -41,11 +42,38 @@
           </div>
         </div>
       </section>
+      <!-- Tabla de todos los reportes -->
+      <section id="tabla-todos-reportes" class="section-content">
+        <h2 class="section-title">Todos los Reportes</h2>
+        <div class="table-responsive">
+          <table id="tabla-todos" class="reporte-tabla">
+            <thead>
+              <tr>
+                <th>ID Reporte</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Calle</th>
+                <th>Número</th>
+                <th>Colonia</th>
+                <th>Municipio</th>
+                <th>C.P.</th>
+                <th>Autoridad</th>
+                <th>Servicio</th>
+                <th>Encargado</th>
+                <th>Teléfono</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
+        </div>
+      </section>
       <!-- formulario Section -->
       <section class="contact-section" id="contact">
         <h2 class="section-title">Reporte</h2>
         <div class="section-content">
-          <form id="formulario-reporte" action="#" class="contact-form">
+          <form id="formulario-reporte" action="#" class="contact-form" method="post">
             <label for="Tipo">Tipo de problema:</label>
             <select id="servicio" class="form-input">
               <option value="">Seleccione el tipo</option>
@@ -55,7 +83,7 @@
               <option value="">Seleccione el municipio</option>
             </select>
             <label for="Tipo">Autoridad</label>
-            <select name="" id="autoridad" class="form-input">
+            <select name="" id="autoridad" class="form-input" disabled required>
               <option value="">Seleccione la autoridad</option>
             </select>
             <label for="Fecha">Fecha</label>
@@ -65,6 +93,7 @@
               id="fecha"
               placeholder="Fecha"
               class="form-input"
+              required
             />
             <label for="colonia">Colonia:</label>
             <input
@@ -73,6 +102,7 @@
               id="colonia"
               placeholder="Colonia"
               class="form-input"
+              required
             />
             <label for="calle">Calle: </label>
             <input
@@ -81,18 +111,54 @@
               id="calle"
               placeholder="Calle"
               class="form-input"
+              required
             />
-            <label for="detalles">Detalles</label>
+            <label for="numero">Numero: </label>
+            <input
+              type="text"
+              name="numero"
+              id="numero"
+              placeholder="numero"
+              class="form-input"
+              required
+            />
+            <label for="codigoPostal">Codigo Postal: </label>
+            <input
+              type="text"
+              name="codigoPostal"
+              id="codigoPostal"
+              placeholder="codigo postal"
+              class="form-input"
+              pattern="[0-9]+"
+              inputmode="numeric"
+              required
+            />
+            <label for="detalles">Descripcion</label>
             <textarea
               class="form-input"
               name="Detalles"
-              id="detalles"
+              id="descripcion"
               placeholder="detalles"
             ></textarea>
             <button type="submit" class="submit-button">Enviar</button>
           </form>
         </div>
       </section>
+      <!-- Creacion del popup, al enviar un reporte -->
+       <div class="popup" id="popup">
+
+        <div class="popup-header">
+          <div class="popup-title">Creacion de reportes</div>
+          <button data-close-button class="popup-close">&times;</button>
+        </div>
+
+        <div class="popup-content">
+          <p class="popup-message" id="popup-message">
+          </p>
+        </div>
+
+       </div>
+       <div id="overlay"></div>
       <section id="tabla-reporte" style="display: none" class="section-content">
         <h2 class="section-title">Reportes Generados</h2>
         <table id="tabla-dinamica" class="reporte-tabla">
@@ -110,6 +176,33 @@
           <tbody></tbody>
         </table>
       </section>
+      <!-- Tabla de reportes del usuario -->
+      <section id="tabla-usuario-reportes" class="section-content">
+        <h2 class="section-title">Mis Reportes</h2>
+        <div class="table-responsive">
+          <table id="tabla-usuario" class="reporte-tabla">
+            <thead>
+              <tr>
+                <th>ID Reporte</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Calle</th>
+                <th>Número</th>
+                <th>Colonia</th>
+                <th>Municipio</th>
+                <th>C.P.</th>
+                <th>Autoridad</th>
+                <th>Servicio</th>
+                <th>Encargado</th>
+                <th>Teléfono</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       <!-- Footer -->
       <footer class="footer-section">
         <div class="section-content">
@@ -126,8 +219,11 @@
       </footer>
     </main>
     <script src="js/scriptRpt.js"></script>
+    <script type="module" src="js/scriptGetReportes.js"></script>
     <script src="js/scriptGetMunicipios.js"></script>
     <script src="js/scriptGetAutoridades.js"></script>
     <script src="js/scriptGetServicios.js"></script>
+    <script type="module" src="js/scripTablas.js"></script>
+    <script src="js/scriptPostReporte.js"></script>
   </body>
 </html>

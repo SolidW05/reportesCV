@@ -32,7 +32,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         // Obtener los roles del usuario
         Collection<? extends SimpleGrantedAuthority> authorities =
                 (Collection<? extends SimpleGrantedAuthority>) authentication.getAuthorities();
-        String redirectUrl = "/default";
+        String redirectUrl = "/";
 
         // Obtener nombre y ID
         HttpSession session = request.getSession();
@@ -48,10 +48,10 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         for (GrantedAuthority auth : authorities) {
             String rol = auth.getAuthority();
 
-            if (rol.equals("ROLE_autoridad")) {
+            if (rol.equals("ROLE_autoridad") && usuario.isActivo()) {
                 redirectUrl = "/home";
                 break;
-            } else if (rol.equals("ROLE_usuario")) {
+            } else if (rol.equals("ROLE_usuario")  && usuario.isActivo()) {
                 redirectUrl = "/home";
                 break;
             }

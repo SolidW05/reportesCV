@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`usuarios` (
   UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE,
   UNIQUE INDEX `CURP_UNIQUE` (`CURP` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1019
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -56,7 +56,6 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`municipios` (
   `municipio` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idMunicipio`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 126
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -82,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`autoridades` (
     FOREIGN KEY (`municipio`)
     REFERENCES `proyecto`.`municipios` (`idMunicipio`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1011
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -104,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`ubicacion` (
     FOREIGN KEY (`municipio`)
     REFERENCES `proyecto`.`municipios` (`idMunicipio`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1005
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -136,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`reportes` (
     FOREIGN KEY (`idUsuarios`)
     REFERENCES `proyecto`.`usuarios` (`idUsuarios`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1005
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8mb3;
 
 

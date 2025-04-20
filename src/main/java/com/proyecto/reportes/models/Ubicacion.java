@@ -71,4 +71,17 @@ public class Ubicacion {
     @ManyToOne
     @JoinColumn(name = "municipio")
     private Municipio municipio;
+
+    public Ubicacion(String calle, String numero,
+                     String colonia, String codigoPostal,
+                     Municipio municipio) {
+        this.calle = calle;
+        this.numero = numero;
+        this.colonia = colonia;
+        this.codigoPostal = codigoPostal;
+        this.municipio = municipio;
+    }
+
+    public Ubicacion() {
+    }
 }
