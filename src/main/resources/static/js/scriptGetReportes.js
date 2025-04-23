@@ -43,6 +43,7 @@ function obtenerTodosReportes(tablaID) {
     });
 
 }
+
 function obtenerTodosReportesPorUsr(tablaID) {
     const idUsr = document.body.dataset.id;
     let url = `http://localhost:7512/api/reporte/usuarios/${idUsr}`;

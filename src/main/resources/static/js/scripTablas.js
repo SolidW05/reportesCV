@@ -1,4 +1,5 @@
 // Script para aplicar data-labels a las tablas
+
 export function aplicarDataLabels(tablaId) {
   const tabla = document.getElementById(tablaId);
   if (!tabla) return;
@@ -13,4 +14,5 @@ export function aplicarDataLabels(tablaId) {
       });
     });
   }
+
 

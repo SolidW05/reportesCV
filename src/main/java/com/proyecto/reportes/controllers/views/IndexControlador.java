@@ -27,7 +27,7 @@ public class IndexControlador {
             return "Reportes";
         }
         else
-            return "prueba";
+            return "Admin";
     }
 
 
