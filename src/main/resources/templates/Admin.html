@@ -10,6 +10,16 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
   </head>
   <body th:data-id="${usuario.id}">
     <header>
@@ -64,6 +74,34 @@
               <th>Teléfono</th>
             </tr>
             </thead>
+            <tfoot>
+              <tr>
+                <th></th> <!-- ID Reporte -->
+                <th></th> <!-- Fecha -->
+                <th>
+                  <select id="filtro-estado">
+                    <option value="">Todos</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Revision">Revision</option>
+                    <option value="Proceso">Proceso</option>
+                    <option value="Terminado">Terminado</option>
+                  </select>
+                </th>
+                <th></th> <!-- Calle -->
+                <th></th> <!-- Número -->
+                <th></th> <!-- Colonia -->
+                <th>
+                  <input type="text" id="filtro-municipio" placeholder="Buscar municipio">
+                </th>
+                <th></th> <!-- C.P. -->
+                <th></th> <!-- Autoridad -->
+                <th>
+                  <input type="text" id="filtro-servicio" placeholder="Buscar servicio">
+                </th>
+                <th></th> <!-- Encargado -->
+                <th></th> <!-- Teléfono -->
+              </tr>
+            </tfoot>
             <tbody>
             </tbody>
           </table>
@@ -76,24 +114,23 @@
           <form id="formulario-reporte" action="#" class="contact-form" method="post">
             <label for="Tipo">Tipo de problema:</label>
             <select id="servicio" class="form-input" disabled>
-              <option value="">Seleccione el tipo</option>
+              <option value="">Seleccione un reporte</option>
             </select>
             <label for="Tipo">municipio</label>
             <select id="municipio" class="form-input" disabled>
-              <option value="">Seleccione el municipio</option>
+              <option value="">Seleccione un reporte</option>
             </select>
             <label for="Tipo">Autoridad</label>
-            <select id="autoridad" class="form-input" disabled required>
-              <option value="">Seleccione la autoridad</option>
+            <select id="autoridad" class="form-input" disabled>
+              <option value="">Seleccione un reporte</option>
             </select>
             <label for="Fecha">Fecha</label>
             <input
               type="date"
               name="fecha"
               id="fecha"
-              placeholder="Fecha"
+              placeholder="Seleccione un reporte"
               class="form-input"
-              required
               disabled
             />
             <label for="colonia">Colonia:</label>
@@ -101,9 +138,8 @@
               type="text"
               name="colonia"
               id="colonia"
-              placeholder="Colonia"
+              placeholder="Seleccione un reporte"
               class="form-input"
-              required
               disabled
             />
             <label for="calle">Calle: </label>
@@ -111,9 +147,8 @@
               type="text"
               name="calle"
               id="calle"
-              placeholder="Calle"
+              placeholder="Seleccione un reporte"
               class="form-input"
-              required
               disabled
             />
             <label for="numero">Numero: </label>
@@ -121,9 +156,8 @@
               type="text"
               name="numero"
               id="numero"
-              placeholder="numero"
+              placeholder="Seleccione un reporte"
               class="form-input"
-              required
               disabled
             />
             <label for="codigoPostal">Codigo Postal: </label>
@@ -131,11 +165,10 @@
               type="text"
               name="codigoPostal"
               id="codigoPostal"
-              placeholder="codigo postal"
+              placeholder="Seleccione un reporte"
               class="form-input"
               pattern="[0-9]+"
               inputmode="numeric"
-              required
               disabled
             />
             <label for="detalles">Descripcion</label>
@@ -143,12 +176,12 @@
               class="form-input"
               name="Detalles"
               id="descripcion"
-              placeholder="detalles"
+              placeholder="Seleccione un reporte"
               disabled
             ></textarea>
             <label for="Tipo">Estatus:</label>
             <select name="estatus" id="Estatus" class="form-input">
-              <option value="">Seleccione el tipo</option>
+              <option value="">Seleccione un reporte</option>
             </select>
             <label for="Observaciones">Observaciones</label>
             <textarea
@@ -162,38 +195,6 @@
         </div>
       </section>
       <!-- Creacion del popup, al enviar un reporte -->
-       <div class="popup" id="popup">
-
-        <div class="popup-header">
-          <div class="popup-title">Creacion de reportes</div>
-          <button data-close-button class="popup-close">&times;</button>
-        </div>
-
-        <div class="popup-content">
-          <p class="popup-message" id="popup-message">
-          </p>
-        </div>
-
-       </div>
-       <div id="overlay"></div>
-      <section id="tabla-reporte" style="display: none" class="section-content">
-        <h2 class="section-title">Reportes Generados</h2>
-        <table id="tabla-dinamica" class="reporte-tabla">
-          <thead>
-            <tr>
-              <th>Tipo</th>
-              <th>Municipio</th>
-              <th>Autoridad</th>
-              <th>Fecha</th>
-              <th>Colonia</th>
-              <th>Calle</th>
-              <th>Detalles</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
-
 
       <!-- Footer -->
       <footer class="footer-section">
@@ -210,10 +211,25 @@
         </div>
       </footer>
     </main>
-    <script src="js/scriptRpt.js"></script>
-    <script type="module" src="js/scriptGetReportes.js"></script>
+    <style>
+      input::placeholder:disabled {
+        color: #bbb; /* color para el placeholder de inputs deshabilitados */
+      }
+    
+      input:disabled {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #888;
+        cursor: not-allowed;
+      }
+      textarea:disabled {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #888;
+        cursor: not-allowed;
+      }
+    </style>
+    <script type="module" src="js/scriptRpt.js"></script>
+    <script type="module" src="js/scriptGetReportesAu.js"></script>
     <script type="module" src="js/scripTablas.js"></script>
-    <script src="js/scriptPostReporte.js"></script>
-
+    <script type="module" src="js/scriptActualizarEstado.js"></script>
   </body>
 </html>

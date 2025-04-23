@@ -1,5 +1,6 @@
 package com.proyecto.reportes.controllers.rest;
 
+import com.proyecto.reportes.models.DTO.ReporteActualizarEstadoDTO;
 import com.proyecto.reportes.models.DTO.ReporteCrearDTO;
 import com.proyecto.reportes.models.DTO.ReporteRespuestaDTO;
 import com.proyecto.reportes.models.Reporte;
@@ -28,12 +29,33 @@ public class ReporteControlador {
         return reporteServicio.reportesPorUsuario(id);
     }
 
-    @PostMapping
-    public ResponseEntity<Integer> agregarReporte(@RequestBody ReporteCrearDTO nuevoReporte){
-        Integer idReporte = reporteServicio.crearReporte(nuevoReporte);
+    @GetMapping("/encargado/{id}")
+    public List<ReporteRespuestaDTO> reporteEncargado(@PathVariable Integer id){
+        return reporteServicio.reportesPorEncargado(id);
+    }
 
+    @GetMapping("/{id}")
+    public ReporteRespuestaDTO reportesPorId(@PathVariable Integer id){
+        return reporteServicio.reportePorId(id);
+    }
+
+    @PostMapping("/actualizar/estatus")
+    public ResponseEntity<Integer> actualizarEstatus(@RequestBody ReporteActualizarEstadoDTO actualizacionReporte){
+        Integer idReporte = reporteServicio.actualizarEstado(actualizacionReporte);
         return ResponseEntity.status(HttpStatus.CREATED).body(idReporte);
 
     }
+    @PostMapping
+    public ResponseEntity<Integer> agregarReporte(@RequestBody ReporteCrearDTO nuevoReporte){
+        Integer idReporte = reporteServicio.crearReporte(nuevoReporte);
+        return ResponseEntity.status(HttpStatus.CREATED).body(idReporte);
+
+    }
+
+    @PutMapping
+    public void modificarEstado(){
+
+    }
+
 
 }

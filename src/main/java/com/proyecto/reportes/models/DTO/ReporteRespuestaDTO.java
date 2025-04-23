@@ -8,7 +8,8 @@ import java.time.LocalDate;
 public class ReporteRespuestaDTO {
     public ReporteRespuestaDTO(Integer idReporte, String descripcion, Reporte.EstadoReporte estado, LocalDate fechaReporte,
                                 byte[] foto,
-                               String calle, String numero, String colonia, String codigoPostal, String municipio, String nombre, String autoridad, String servicio, String telefono) {
+                               String calle, String numero, String colonia, String codigoPostal, String municipio,
+                               String nombre, String autoridad, String servicio, String telefono, String observaciones) {
         this.idReporte = idReporte;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -23,6 +24,7 @@ public class ReporteRespuestaDTO {
         this.autoridad = autoridad;
         this.servicio = servicio;
         this.telefono = telefono;
+        this.observaciones = observaciones;
     }
     public ReporteRespuestaDTO(Integer idReporte, String descripcion) {
         this.idReporte = idReporte;
@@ -141,6 +143,15 @@ public class ReporteRespuestaDTO {
         this.telefono = telefono;
     }
 
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+
     private Integer idReporte;
     private String descripcion;
     private Reporte.EstadoReporte estado;
@@ -156,4 +167,5 @@ public class ReporteRespuestaDTO {
     private String autoridad;
     private String servicio;
     private String telefono;
+    private String observaciones;
 }

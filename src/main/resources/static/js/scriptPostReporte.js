@@ -20,6 +20,9 @@ document.getElementById("formulario-reporte").addEventListener("submit", functio
     })
     .then(response => response.json())
     .then(data => {
+        const autoridadSelect = document.getElementById("autoridad");
+        autoridadSelect.disabled = true; // Desactivar el select de autoridad
+        this.reset(); // Limpiar el formulario después de enviar
         showPopup(data); // Mostrar el popup con el id del reporte creado
     })
     .catch(error => console.error("Error:", error));

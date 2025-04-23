@@ -70,6 +70,16 @@ public class Reporte {
         this.autoridad = autoridad;
     }
 
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idReportes")
@@ -78,6 +88,8 @@ public class Reporte {
     @Column(nullable = false, length = 200)
     private String descripcion;
 
+    @Column(name = "observaciones", length = 255)
+    private String observaciones;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoReporte estado = EstadoReporte.Pendiente;

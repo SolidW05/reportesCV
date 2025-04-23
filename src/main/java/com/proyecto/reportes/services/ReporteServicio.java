@@ -1,5 +1,6 @@
 package com.proyecto.reportes.services;
 
+import com.proyecto.reportes.models.DTO.ReporteActualizarEstadoDTO;
 import com.proyecto.reportes.models.DTO.ReporteCrearDTO;
 import com.proyecto.reportes.models.DTO.ReporteRespuestaDTO;
 import com.proyecto.reportes.models.Reporte;
@@ -39,9 +40,25 @@ public class ReporteServicio {
         return reporteRepositorio.obtenerReportesPorUsuario(idUsuario);
     }
 
+    public List<ReporteRespuestaDTO> reportesPorEncargado(Integer idUsuario){
+        return reporteRepositorio.obtenerReportesPorAu(idUsuario);
+    }
+
     public Reporte encontrarDatos(ReporteCrearDTO reporteDTO){
 
         return new Reporte();
+    }
+    public ReporteRespuestaDTO reportePorId(Integer id){
+        return reporteRepositorio.obtenerReportePorId(id);
+    }
+
+    public Integer actualizarEstado(ReporteActualizarEstadoDTO antiguoReporte){
+        Reporte reporteActualizado = reporteRepositorio.findById(antiguoReporte.getIdReporte())
+                .orElseThrow(() -> new RuntimeException("Reporte no encontrada"));
+        reporteActualizado.setEstado(antiguoReporte.getEstatus());
+        reporteActualizado.setObservaciones(antiguoReporte.getObservaciones());
+
+        return reporteRepositorio.save(reporteActualizado).getIdReporte();
     }
     public Integer crearReporte(ReporteCrearDTO nuevoReporte){
 
@@ -76,5 +93,6 @@ public class ReporteServicio {
 
         return reporteRepositorio.save(reporte).getIdReporte();
     }
+
 
 }

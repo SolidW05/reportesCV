@@ -17,7 +17,7 @@ public interface ReporteRepositorio extends JpaRepository<Reporte, Integer> {
             " r.foto," +
             " u.calle, u.numero, " +
             "u.colonia, u.codigoPostal, m.municipio, au.nombre, " +
-            "a.autoridad, a.servicio, a.telefono) " +
+            "a.autoridad, a.servicio, a.telefono, r.observaciones) " +
             "FROM Reporte r " +
             "JOIN r.ubicacion u " +
             "JOIN u.municipio m " +
@@ -30,7 +30,7 @@ public interface ReporteRepositorio extends JpaRepository<Reporte, Integer> {
             " r.foto," +
             " u.calle, u.numero, " +
             "u.colonia, u.codigoPostal, m.municipio, au.nombre, " +
-            "a.autoridad, a.servicio, a.telefono) " +
+            "a.autoridad, a.servicio, a.telefono, r.observaciones) " +
             "FROM Reporte r " +
             "JOIN r.ubicacion u " +
             "JOIN u.municipio m " +
@@ -39,4 +39,35 @@ public interface ReporteRepositorio extends JpaRepository<Reporte, Integer> {
             "JOIN r.usuario usr " +
             "WHERE usr.idUsuario = :idUsuario")
     List<ReporteRespuestaDTO> obtenerReportesPorUsuario(@Param("idUsuario") Integer idUsuario);
+    @Query("SELECT new com.proyecto.reportes.models.DTO.ReporteRespuestaDTO(r.idReporte, r.descripcion, r.estado, " +
+            "r.fechaReporte," +
+            " r.foto," +
+            " u.calle, u.numero, " +
+            "u.colonia, u.codigoPostal, m.municipio, au.nombre, " +
+            "a.autoridad, a.servicio, a.telefono, r.observaciones) " +
+            "FROM Reporte r " +
+            "JOIN r.ubicacion u " +
+            "JOIN u.municipio m " +
+            "JOIN r.autoridad a " +
+            "JOIN a.usuario au " +
+            "JOIN r.usuario usr " +
+            "WHERE r.idReporte = :idReporte")
+    ReporteRespuestaDTO obtenerReportePorId(@Param("idReporte") Integer idReporte);
+
+    @Query("SELECT new com.proyecto.reportes.models.DTO.ReporteRespuestaDTO(r.idReporte, r.descripcion, r.estado, " +
+            "r.fechaReporte," +
+            " r.foto," +
+            " u.calle, u.numero, " +
+            "u.colonia, u.codigoPostal, m.municipio, au.nombre, " +
+            "a.autoridad, a.servicio, a.telefono, r.observaciones) " +
+            "FROM Reporte r " +
+            "JOIN r.ubicacion u " +
+            "JOIN u.municipio m " +
+            "JOIN r.autoridad a " +
+            "JOIN a.usuario au " +
+            "JOIN r.usuario usr " +
+            "WHERE au.idUsuario = :idUsuario")
+    List<ReporteRespuestaDTO> obtenerReportesPorAu(@Param("idUsuario") Integer idUsuario);
+
+
 }

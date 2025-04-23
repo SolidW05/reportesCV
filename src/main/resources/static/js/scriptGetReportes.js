@@ -33,7 +33,7 @@ function obtenerTodosReportes(tablaID) {
                 <td>${element.nombre}</td>
                 <td>${element.telefono}</td>
             `;
-            tr.id = element.idReporte;
+            tr.dataset.id = element.idReporte;
             tbody.appendChild(tr);
         });
         aplicarDataLabels(tablaID);
