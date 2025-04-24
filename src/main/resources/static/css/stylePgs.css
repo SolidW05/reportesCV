@@ -510,8 +510,9 @@
 }
 table{
    font-size: 14px;
-   table-layout: fixed;
-   border-collapse: collapse;;
+   /*table-layout: fixed;*/
+   border-collapse: collapse;
+   padding: auto;
 }
 thead{
    background-color: var(--light-pink-color);
@@ -530,11 +531,10 @@ tbody tr{
    cursor: pointer;
    transition: background-color 0.3s ease;
 }
-tbody tr:hover {
-   background-color: var(--medium-gray-color);
-   
-}
-
+table.dataTable tbody tr:hover {
+   background-color: var(--medium-gray-color) !important;
+ }
+ 
 /* 1024px */
  @media screen and (max-width: 1024px){
    .menu-section .menu-list{

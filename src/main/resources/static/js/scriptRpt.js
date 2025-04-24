@@ -1,37 +1,30 @@
 import { setIdReporte } from "./scriptActualizarEstado.js";
-function activarClicksTabla() {
-  const table = document.getElementById("tabla-usuario");
 
-  table.addEventListener("click", function (e) {
-    const row = e.target.closest("tr");
-    const id = row.dataset.id; // Obtener el ID del reporte desde el atributo data-id
-    setIdReporte(id);
-    const url = `http://192.168.1.79:7512/api/reporte/${id}`; // URL de la API para obtener el reporte específico
-    
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok " + response.statusText);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        llenarFormulario(data);
-        document.getElementById("contact").scrollIntoView({
-          behavior: "smooth" // animación suave
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+$('#tabla-usuario tbody').on('click', 'tr', function () {
+  const id = $(this).find('td').eq(0).text(); // Obtener el texto de la primera columna
+  if (!id) return;
+  setIdReporte(id); // Llamar a la función para establecer el idReporte
 
-  });
-}
+  const url = `http://192.168.1.79:7512/api/reporte/${id}`;
+
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then(res => res.json())
+  .then(data => {
+    llenarFormulario(data);
+    const reporteSeccion = document.getElementById("contact");
+    reporteSeccion.style.display = "block"; // Mostrar la sección del formulario
+    document.getElementById("contact").scrollIntoView({
+      behavior: "smooth"
+    });
+  })
+  .catch(console.error);
+});
+
 
 function llenarFormulario(data) {
     document.getElementById("servicio").innerHTML = `<option selected>${data.servicio}</option>`;
@@ -51,9 +44,6 @@ function llenarFormulario(data) {
         return `<option value="${opcion}" ${selected}>${opcion}</option>`;
       })
       .join("");
-      document.getElementById("Observaciones").value = data.obs ?? "";
+      document.getElementById("observaciones").value = data.observaciones ?? "";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  activarClicksTabla();
-});

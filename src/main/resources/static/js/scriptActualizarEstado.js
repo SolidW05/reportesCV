@@ -12,10 +12,10 @@ document.getElementById("formulario-reporte")
     const reporteAct = {
         idReporte: idReporte,
         estatus: document.getElementById("Estatus").value,
-        observaciones: document.getElementById("Observaciones").value
+        observaciones: document.getElementById("observaciones").value
     };
 
-    let url = `http://localhost:7512/api/reporte/actualizar/estatus` 
+    let url = `http://192.168.1.79:7512/api/reporte/actualizar/estatus` 
     console.log(url)
     fetch(url, {
         method: "POST",
@@ -25,6 +25,11 @@ document.getElementById("formulario-reporte")
     .then(response => response.json())
     .then(data => {
         this.reset(); // Limpiar el formulario después de enviar
+        const reporteSeccion = document.getElementById("contact");
+        reporteSeccion.style.display = 'none'; // Mostrar la sección del formulario
+        document.getElementById("tabla-usuario-reportes").scrollIntoView({
+          behavior: "smooth"
+        });
     })
     .catch(error => console.error("Error:", error));
 });

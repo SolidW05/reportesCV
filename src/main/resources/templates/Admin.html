@@ -30,7 +30,7 @@
         <ul class="nav-menu">
           <button id="menu-close-button" class="fas fa-times"></button>
           <li class="nav-item">
-            <a href="#contact" class="nav-link">Reporte</a>
+            <a href="#tabla-usuario" class="nav-link">Reporte</a>
           </li>
         </ul>
         <button id="menu-open-button" class="fas fa-bars"></button>
@@ -55,7 +55,7 @@
 
       <!-- Tabla de reportes del usuario -->
       <section id="tabla-usuario-reportes" class="section-content">
-        <h2 class="section-title">Mis Reportes</h2>
+        <h2 class="section-title">Reportes Asignados</h2>
         <div class="table-responsive">
           <table id="tabla-usuario" class="reporte-tabla">
             <thead>
@@ -79,6 +79,7 @@
                 <th></th> <!-- ID Reporte -->
                 <th></th> <!-- Fecha -->
                 <th>
+                  Estado:
                   <select id="filtro-estado">
                     <option value="">Todos</option>
                     <option value="Pendiente">Pendiente</option>
@@ -108,7 +109,7 @@
         </div>
       </section>
       <!-- formulario Section -->
-      <section class="contact-section" id="contact">
+      <section class="contact-section" id="contact" style="display: none;">
         <h2 class="section-title">Reporte</h2>
         <div class="section-content">
           <form id="formulario-reporte" action="#" class="contact-form" method="post">
@@ -187,7 +188,7 @@
             <textarea
                     class="form-input"
                     name="Observaciones"
-                    id="Observaciones"
+                    id="observaciones"
                     placeholder="Observaciones"
             ></textarea>
             <button type="submit" class="submit-button">Enviar</button>
