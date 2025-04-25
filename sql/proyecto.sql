@@ -27,8 +27,6 @@ GRANT SELECT, UPDATE, INSERT, DELETE ON proyecto.* TO usuarios2;
 -- -----------------------------------------------------
 -- Table `Proyecto`.`Usuarios`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `proyecto`.`usuarios` ;
-
 CREATE TABLE IF NOT EXISTS `proyecto`.`usuarios` (
   `idUsuarios` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(120) NOT NULL,
@@ -49,8 +47,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 -- Table `proyecto`.`municipios`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `proyecto`.`municipios` ;
-
 CREATE TABLE IF NOT EXISTS `proyecto`.`municipios` (
   `idMunicipio` INT NOT NULL AUTO_INCREMENT,
   `municipio` VARCHAR(255) NULL DEFAULT NULL,
@@ -62,8 +58,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 -- Table `proyecto`.`autoridades`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `proyecto`.`autoridades` ;
-
 CREATE TABLE IF NOT EXISTS `proyecto`.`autoridades` (
   `idAutoridades` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `idUsuarios` INT UNSIGNED NOT NULL,
@@ -88,8 +82,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 -- Table `proyecto`.`ubicacion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `proyecto`.`ubicacion` ;
-
 CREATE TABLE IF NOT EXISTS `proyecto`.`ubicacion` (
   `idUbicacion` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `calle` VARCHAR(80) NOT NULL,
@@ -110,8 +102,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 -- Table `proyecto`.`reportes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `proyecto`.`reportes` ;
-
 CREATE TABLE IF NOT EXISTS `proyecto`.`reportes` (
   `idReportes` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Descripcion` VARCHAR(200) NOT NULL,
@@ -121,6 +111,7 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`reportes` (
   `idUbicacion` INT UNSIGNED NOT NULL,
   `idUsuarios` INT UNSIGNED NOT NULL,
   `idAutoridades` INT UNSIGNED NOT NULL,
+  `observaciones` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idReportes`),
   INDEX `fk_Reportes_Ubicacion1_idx` (`idUbicacion` ASC) VISIBLE,
   INDEX `fk_Reportes_Usuarios1_idx` (`idUsuarios` ASC) VISIBLE,
