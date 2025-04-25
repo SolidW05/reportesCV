@@ -5,7 +5,7 @@ $('#tabla-usuario tbody').on('click', 'tr', function () {
   if (!id) return;
   setIdReporte(id); // Llamar a la función para establecer el idReporte
 
-  const url = `http://192.168.1.79:7512/api/reporte/${id}`;
+  const url = `http://localhost:7512/api/reporte/${id}`;
 
   fetch(url, {
     method: "GET",

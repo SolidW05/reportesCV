@@ -62,7 +62,7 @@ let tablaDT = null;
 
 function obtenerTodosReportesPorAu(tablaID) {
     const idUsr = document.body.dataset.id;
-    const url = `http://192.168.1.79:7512/api/reporte/encargado/${idUsr}`;
+    const url = `http://localhost:7512/api/reporte/encargado/${idUsr}`;
 
     fetch(url, {
         method: 'GET',

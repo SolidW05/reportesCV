@@ -15,7 +15,7 @@ document.getElementById("formulario-reporte")
         observaciones: document.getElementById("observaciones").value
     };
 
-    let url = `http://192.168.1.79:7512/api/reporte/actualizar/estatus` 
+    let url = `http://localhost:7512/api/reporte/actualizar/estatus` 
     console.log(url)
     fetch(url, {
         method: "POST",

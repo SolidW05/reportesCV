@@ -13,6 +13,7 @@ export function aplicarDataLabels(tablaId) {
       celda.setAttribute("data-label", encabezados[index]);
       });
     });
-  }
+
+}
 
 
