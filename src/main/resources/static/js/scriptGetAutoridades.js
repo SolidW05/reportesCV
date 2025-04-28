@@ -1,44 +1,41 @@
-const servicioSelect = document.getElementById("servicio");
-const municipioSelect = document.getElementById("municipio");
-const autoridadSelect = document.getElementById("autoridad");
+// Buscar todos los formularios
+const formularios = document.querySelectorAll(".formulario-servicio");
 
-// Función para verificar si ambos selects tienen valores
-function verificarSeleccionYActualizarAutoridades() {
-    const servicio = servicioSelect.value;
-    const municipio = municipioSelect.value;
+formularios.forEach(formulario => {
+    const servicioSelect = formulario.querySelector(".servicio");
+    const municipioSelect = formulario.querySelector(".municipio");
+    const autoridadSelect = formulario.querySelector(".autoridad");
 
-    if (servicio && municipio) {
-        // Ambos seleccionados, activar el select de autoridad
-        autoridadSelect.disabled = false;
+    function verificarSeleccionYActualizarAutoridades() {
+        const servicio = servicioSelect.value;
+        const municipio = municipioSelect.value;
 
-        // Aquí haces el fetch, suponiendo que el API usa parámetros tipo query
-        const url = `http://localhost:7512/api/autoridad/municipio/${municipio}/servicio/${servicio}`;
-        
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                // Limpiar opciones anteriores
-                autoridadSelect.innerHTML = '<option value="">Seleccione la autoridad</option>';
+        if (servicio && municipio) {
+            autoridadSelect.disabled = false;
+            const url = `http://localhost:7512/api/autoridad/municipio/${municipio}/servicio/${servicio}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    autoridadSelect.innerHTML = '<option value="">Seleccione la autoridad</option>';
 
-                data.forEach(autoridad => {
-                    const option = document.createElement("option");
-                    option.value = autoridad.id;
-                    option.text = autoridad.autoridad;
-                    console.log(autoridad.id, autoridad.autoridad); // Para depuración
-                    autoridadSelect.appendChild(option);
+                    data.forEach(autoridad => {
+                        const option = document.createElement("option");
+                        option.value = autoridad.id;
+                        option.text = autoridad.autoridad;
+                        autoridadSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error al obtener autoridades:", error);
+                    autoridadSelect.disabled = true;
                 });
-            })
-            .catch(error => {
-                console.error("Error al obtener autoridades:", error);
-                autoridadSelect.disabled = true; // Si falla, lo desactivamos de nuevo
-            });
-    } else {
-        // Falta uno de los dos -> desactivar autoridad
-        autoridadSelect.disabled = true;
-        autoridadSelect.innerHTML = '<option value="">Seleccione la autoridad</option>';
+        } else {
+            autoridadSelect.disabled = true;
+            autoridadSelect.innerHTML = '<option value="">Seleccione la autoridad</option>';
+        }
     }
-}
 
-// Escuchar cambios en ambos selects
-servicioSelect.addEventListener("change", verificarSeleccionYActualizarAutoridades);
-municipioSelect.addEventListener("change", verificarSeleccionYActualizarAutoridades);
+    servicioSelect.addEventListener("change", verificarSeleccionYActualizarAutoridades);
+    municipioSelect.addEventListener("change", verificarSeleccionYActualizarAutoridades);
+});

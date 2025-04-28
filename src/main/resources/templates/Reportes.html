@@ -10,6 +10,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
   </head>
   <body th:data-id="${usuario.id}">
     <header>
@@ -45,7 +54,7 @@
       <!-- Tabla de todos los reportes -->
       <section id="tabla-todos-reportes" class="section-content">
         <h2 class="section-title">Todos los Reportes</h2>
-        <div class="table-responsive">
+        <div class="table-responsive table-usuario">
           <table id="tabla-todos" class="reporte-tabla">
             <thead>
               <tr>
@@ -63,6 +72,35 @@
                 <th>Teléfono</th>
               </tr>
             </thead>
+            <tfoot>
+              <tr>
+                <th></th> <!-- ID Reporte -->
+                <th></th> <!-- Fecha -->
+                <th>
+                  Estado:
+                  <select id="filtro-estado-todos">
+                    <option value="">Todos</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Revision">Revision</option>
+                    <option value="Proceso">Proceso</option>
+                    <option value="Terminado">Terminado</option>
+                  </select>
+                </th>
+                <th></th> <!-- Calle -->
+                <th></th> <!-- Número -->
+                <th></th> <!-- Colonia -->
+                <th>
+                  <input type="text" id="filtro-municipio-todos" placeholder="Buscar municipio">
+                </th>
+                <th></th> <!-- C.P. -->
+                <th></th> <!-- Autoridad -->
+                <th>
+                  <input type="text" id="filtro-servicio-todos" placeholder="Buscar servicio">
+                </th>
+                <th></th> <!-- Encargado -->
+                <th></th> <!-- Teléfono -->
+              </tr>
+            </tfoot>
             <tbody>
               
             </tbody>
@@ -73,17 +111,17 @@
       <section class="contact-section" id="contact">
         <h2 class="section-title">Reporte</h2>
         <div class="section-content">
-          <form id="formulario-reporte" action="#" class="contact-form" method="post">
+          <form id="formulario-reporte" action="#" class="contact-form formulario-servicio" method="post">
             <label for="Tipo">Tipo de problema:</label>
-            <select id="servicio" class="form-input">
+            <select id="servicio" class="form-input servicio" required>
               <option value="">Seleccione el tipo</option>
             </select>
             <label for="Tipo">municipio</label>
-            <select name="" id="municipio" class="form-input">
+            <select name="" id="municipio" class="form-input municipio" required>
               <option value="">Seleccione el municipio</option>
             </select>
             <label for="Tipo">Autoridad</label>
-            <select name="" id="autoridad" class="form-input" disabled required>
+            <select name="" id="autoridad" class="form-input autoridad" disabled required>
               <option value="">Seleccione la autoridad</option>
             </select>
             <label for="Fecha">Fecha</label>
@@ -144,16 +182,10 @@
           </form>
         </div>
       </section>
-      <!-- Creacion del popup, al enviar un reporte -->
-       <dialog>
-
-       </dialog>
-
-       
-       <div class="popup" id="popup">
-
+      <!-- Creacion de popups -->
+       <dialog data-modal class="popup" id="popup-eliminar">
         <div class="popup-header">
-          <div class="popup-title">Creacion de reportes</div>
+          <div class="popup-title">Eliminar Reporte</div>
           <button data-close-button class="popup-close">&times;</button>
         </div>
 
@@ -161,9 +193,69 @@
           <p class="popup-message" id="popup-message">
           </p>
         </div>
+        <div style="display: flex;
+          justify-content: flex-end;
+          gap: 15px;">
+          <button data-close-button class="btn-cancelar" >Cancelar</button>
+          <button id="eliminar-reporte" class="btn-eliminar">Eliminar</button>
+        </div>
 
-       </div>
-       <div id="overlay"></div>
+       </dialog>
+
+       <dialog data-modal class="popup" id="popup-crear">
+        <div class="popup-header">
+          <div class="popup-title">Reporte Creado</div>
+          <button data-close-button class="popup-close">&times;</button>
+        </div>
+
+        <div class="popup-content">
+          <p class="popup-message" id="popup-message-crear">
+          </p>
+        </div>
+        <div style="display: flex;
+          justify-content: flex-end;
+          gap: 15px;">
+          <button data-close-button class="btn-eliminar">Cerrar</button>
+        </div>
+
+       </dialog>
+
+       <dialog data-modal class="popup" id="popup-actualizar">
+        <div class="popup-header">
+          <div class="popup-title">Reporte actualizado</div>
+          <button data-close-button class="popup-close">&times;</button>
+        </div>
+
+        <div class="popup-content">
+          <p class="popup-message" id="popup-message-actualizar">
+          </p>
+        </div>
+        <div style="display: flex;
+          justify-content: flex-end;
+          gap: 15px;">
+          <button data-close-button class="btn-eliminar">Cerrar</button>
+        </div>
+
+       </dialog>
+
+       <dialog data-modal class="popup" id="popup-eliminar-respuesta">
+        <div class="popup-header">
+          <div class="popup-title">Reporte eliminado</div>
+          <button data-close-button class="popup-close">&times;</button>
+        </div>
+
+        <div class="popup-content">
+          <p class="popup-message" id="popup-message">
+          </p>
+        </div>
+        <div style="display: flex;
+          justify-content: flex-end;
+          gap: 15px;">
+          <button data-close-button class="btn-cancelar" >Cancelar</button>
+        </div>
+
+       </dialog>
+      <!-- Tabla de reportes generados -->
       <section id="tabla-reporte" style="display: none" class="section-content">
         <h2 class="section-title">Reportes Generados</h2>
         <table id="tabla-dinamica" class="reporte-tabla">
@@ -184,10 +276,11 @@
       <!-- Tabla de reportes del usuario -->
       <section id="tabla-usuario-reportes" class="section-content">
         <h2 class="section-title">Mis Reportes</h2>
-        <div class="table-responsive">
+        <div class="table-responsive table-usuario">
           <table id="tabla-usuario" class="reporte-tabla">
             <thead>
               <tr>
+                <th>Acciones</th>
                 <th>ID Reporte</th>
                 <th>Fecha</th>
                 <th>Estado</th>
@@ -202,9 +295,113 @@
                 <th>Teléfono</th>
               </tr>
             </thead>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th> <!-- ID Reporte -->
+                <th></th> <!-- Fecha -->
+                <th>
+                  Estado:
+                  <select id="filtro-estado-usuario">
+                    <option value="">Todos</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Revision">Revision</option>
+                    <option value="Proceso">Proceso</option>
+                    <option value="Terminado">Terminado</option>
+                  </select>
+                </th>
+                <th></th> <!-- Calle -->
+                <th></th> <!-- Número -->
+                <th></th> <!-- Colonia -->
+                <th>
+                  <input type="text" id="filtro-municipio-usuario" placeholder="Buscar municipio">
+                </th>
+                <th></th> <!-- C.P. -->
+                <th></th> <!-- Autoridad -->
+                <th>
+                  <input type="text" id="filtro-servicio-usuario" placeholder="Buscar servicio">
+                </th>
+                <th></th> <!-- Encargado -->
+                <th></th> <!-- Teléfono -->
+              </tr>
+            </tfoot>
             <tbody>
             </tbody>
           </table>
+        </div>
+      </section>
+      <section class="contact-section" id="actualizacion" style="display: none;">
+        <h2 class="section-title">Reporte</h2>
+        <div class="section-content">
+          <form id="formulario-actualizacion" action="#" class="contact-form formulario-servicio" method="post" >
+            <label for="Tipo">Tipo de problema:</label>
+            <select id="servicio-act" class="form-input servicio" required>
+              <option value="">Seleccione el tipo</option>
+            </select>
+            <label for="Tipo">municipio</label>
+            <select name="" id="municipio-act" class="form-input municipio" required>
+              <option value="">Seleccione el municipio</option>
+            </select>
+            <label for="Tipo">Autoridad</label>
+            <select name="" id="autoridad-act" class="form-input autoridad" disabled required>
+              <option value="">Seleccione la autoridad</option>
+            </select>
+            <label for="Fecha">Fecha</label>
+            <input
+              type="date"
+              name="fecha"
+              id="fecha-act"
+              placeholder="Fecha"
+              class="form-input"
+              required
+            />
+            <label for="colonia">Colonia:</label>
+            <input
+              type="text"
+              name="colonia"
+              id="colonia-act"
+              placeholder="Colonia"
+              class="form-input"
+              required
+            />
+            <label for="calle">Calle: </label>
+            <input
+              type="text"
+              name="calle"
+              id="calle-act"
+              placeholder="Calle"
+              class="form-input"
+              required
+            />
+            <label for="numero">Numero: </label>
+            <input
+              type="text"
+              name="numero"
+              id="numero-act"
+              placeholder="numero"
+              class="form-input"
+              required
+            />
+            <label for="codigoPostal">Codigo Postal: </label>
+            <input
+              type="text"
+              name="codigoPostal"
+              id="codigoPostal-act"
+              placeholder="codigo postal"
+              class="form-input"
+              pattern="[0-9]+"
+              inputmode="numeric"
+              required
+            />
+            <label for="detalles">Descripcion</label>
+            <textarea
+              class="form-input"
+              name="Detalles"
+              id="descripcion-act"
+              placeholder="detalles"
+            ></textarea>
+            <button type="submit" class="submit-button">Enviar</button>
+          </form>
         </div>
       </section>
 
@@ -223,6 +420,18 @@
         </div>
       </footer>
     </main>
+    <script>
+      const popup = document.querySelectorAll("[data-modal]");
+
+      document.querySelectorAll("[data-close-button]").forEach(button => {
+        button.addEventListener("click", () => {
+        popup.forEach(popup => {
+            popup.close();
+          });
+        });
+      });
+    </script>
+    <script src="js/scriptActualizarReporte.js"></script>
     <script type="module" src="js/scriptGetReportes.js"></script>
     <script src="js/scriptGetMunicipios.js"></script>
     <script src="js/scriptGetAutoridades.js"></script>

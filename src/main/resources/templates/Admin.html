@@ -197,6 +197,23 @@
       </section>
       <!-- Creacion del popup, al enviar un reporte -->
 
+      <dialog data-modal class="popup" id="popup">
+        <div class="popup-header">
+          <div class="popup-title">Reporte Actualizado</div>
+          <button data-close-button class="popup-close">&times;</button>
+        </div>
+
+        <div class="popup-content">
+          <p class="popup-message" id="popup-message-crear">
+          </p>
+        </div>
+        <div style="display: flex;
+          justify-content: flex-end;
+          gap: 15px;">
+          <button data-close-button class="btn-eliminar">Cerrar</button>
+        </div>
+
+       </dialog>
       <!-- Footer -->
       <footer class="footer-section">
         <div class="section-content">
@@ -228,6 +245,17 @@
         cursor: not-allowed;
       }
     </style>
+    <script>
+      const popup = document.querySelectorAll("[data-modal]");
+
+      document.querySelectorAll("[data-close-button]").forEach(button => {
+        button.addEventListener("click", () => {
+        popup.forEach(popup => {
+            popup.close();
+          });
+        });
+      });
+    </script>
     <script type="module" src="js/scriptRpt.js"></script>
     <script type="module" src="js/scriptGetReportesAu.js"></script>
     <script type="module" src="js/scripTablas.js"></script>

@@ -17,7 +17,7 @@ public interface ReporteRepositorio extends JpaRepository<Reporte, Integer> {
             " r.foto," +
             " u.calle, u.numero, " +
             "u.colonia, u.codigoPostal, m.municipio, au.nombre, " +
-            "a.autoridad, a.servicio, a.telefono, r.observaciones) " +
+            "a.autoridad, a.servicio, a.telefono, r.observaciones, m.idMunicipio, a.idAutoridad ) " +
             "FROM Reporte r " +
             "JOIN r.ubicacion u " +
             "JOIN u.municipio m " +
@@ -30,7 +30,7 @@ public interface ReporteRepositorio extends JpaRepository<Reporte, Integer> {
             " r.foto," +
             " u.calle, u.numero, " +
             "u.colonia, u.codigoPostal, m.municipio, au.nombre, " +
-            "a.autoridad, a.servicio, a.telefono, r.observaciones) " +
+            "a.autoridad, a.servicio, a.telefono, r.observaciones, m.idMunicipio, a.idAutoridad ) " +
             "FROM Reporte r " +
             "JOIN r.ubicacion u " +
             "JOIN u.municipio m " +
@@ -44,7 +44,7 @@ public interface ReporteRepositorio extends JpaRepository<Reporte, Integer> {
             " r.foto," +
             " u.calle, u.numero, " +
             "u.colonia, u.codigoPostal, m.municipio, au.nombre, " +
-            "a.autoridad, a.servicio, a.telefono, r.observaciones) " +
+            "a.autoridad, a.servicio, a.telefono, r.observaciones, m.idMunicipio, a.idAutoridad ) " +
             "FROM Reporte r " +
             "JOIN r.ubicacion u " +
             "JOIN u.municipio m " +
@@ -59,7 +59,7 @@ public interface ReporteRepositorio extends JpaRepository<Reporte, Integer> {
             " r.foto," +
             " u.calle, u.numero, " +
             "u.colonia, u.codigoPostal, m.municipio, au.nombre, " +
-            "a.autoridad, a.servicio, a.telefono, r.observaciones) " +
+            "a.autoridad, a.servicio, a.telefono, r.observaciones, m.idMunicipio, a.idAutoridad ) " +
             "FROM Reporte r " +
             "JOIN r.ubicacion u " +
             "JOIN u.municipio m " +

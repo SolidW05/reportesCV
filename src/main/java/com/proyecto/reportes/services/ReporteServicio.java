@@ -1,5 +1,6 @@
 package com.proyecto.reportes.services;
 
+import com.proyecto.reportes.exceptions.ResourceNotFoundException;
 import com.proyecto.reportes.models.DTO.ReporteActualizarEstadoDTO;
 import com.proyecto.reportes.models.DTO.ReporteCrearDTO;
 import com.proyecto.reportes.models.DTO.ReporteRespuestaDTO;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReporteServicio {
@@ -52,6 +54,11 @@ public class ReporteServicio {
         return reporteRepositorio.obtenerReportePorId(id);
     }
 
+    public Integer eliminarReporte(Integer id){
+        reporteRepositorio.deleteById(id);
+        return id;
+    }
+
     public Integer actualizarEstado(ReporteActualizarEstadoDTO antiguoReporte){
         Reporte reporteActualizado = reporteRepositorio.findById(antiguoReporte.getIdReporte())
                 .orElseThrow(() -> new RuntimeException("Reporte no encontrada"));
@@ -89,6 +96,38 @@ public class ReporteServicio {
         //Relaciones
         reporte.setUbicacion(ubicacion);
         reporte.setUsuario(usuario);
+        reporte.setAutoridad(autoridad);
+
+        return reporteRepositorio.save(reporte).getIdReporte();
+    }
+
+    public Integer actualizarReporte(Integer id, ReporteCrearDTO nuevoReporte){
+
+        Reporte reporte = reporteRepositorio.findById(id).orElseThrow(()
+                -> new RuntimeException("Reporte no encontrado"));
+
+        Ubicacion ubicacion = reporte.getUbicacion();
+
+        Municipio municipio = municipioRepositorio.findById(nuevoReporte.getMunicipio())
+                .orElseThrow(() -> new RuntimeException("Municipio no encontrado"));
+
+        ubicacion.setCalle(nuevoReporte.getCalle());
+        ubicacion.setColonia(nuevoReporte.getColonia());
+        ubicacion.setNumero(nuevoReporte.getNumero());
+        ubicacion.setCodigoPostal(nuevoReporte.getCodigoPostal());
+        ubicacion.setMunicipio(municipio);
+
+        ubicacion = ubicacionRepositorio.save(ubicacion);
+
+        Autoridad autoridad = autoridadRepositorio.findById(nuevoReporte.getIdAutoridad())
+                .orElseThrow(() -> new RuntimeException("Autoridad no encontrada"));
+
+        // creacion del reporte
+        reporte.setDescripcion(nuevoReporte.getDescripcion());
+        reporte.setFechaReporte(nuevoReporte.getFecha());
+
+        //Relaciones
+        reporte.setUbicacion(ubicacion);
         reporte.setAutoridad(autoridad);
 
         return reporteRepositorio.save(reporte).getIdReporte();

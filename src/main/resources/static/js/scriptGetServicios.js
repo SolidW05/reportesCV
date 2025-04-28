@@ -13,12 +13,14 @@ function obtenerServicios() {
         return response.json();
     })
     .then(data => {
-        const select = document.getElementById("servicio");
-        data.forEach(element => {
-            const option = document.createElement("option");
-            option.value = element.servicio;
-            option.text = element.servicio;
-            select.appendChild(option);
+        const select = document.querySelectorAll(".servicio");
+        select.forEach(select => {
+            data.forEach(element => {
+                const option = document.createElement("option");
+                option.value = element.servicio;
+                option.text = element.servicio;
+                select.appendChild(option);
+            });
         });
     })
     .catch(error => {

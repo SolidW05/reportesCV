@@ -508,6 +508,12 @@
    overflow-x: auto;
    max-width: 100%;
 }
+.table-responsive, .table-usuario{
+   display: block;
+   margin-bottom: 80px;
+   overflow-x: auto;
+   max-width: 100%;
+}
 table{
    font-size: 14px;
    /*table-layout: fixed;*/
@@ -534,6 +540,16 @@ tbody tr{
 table.dataTable tbody tr:hover {
    background-color: var(--medium-gray-color) !important;
  }
+
+ table.dataTable {
+   width: 100% !important; /* Asegura que se expanda */
+ }
+ 
+ table.dataTable td,
+ table.dataTable th {
+   white-space: nowrap; /* Opcional, ayuda a mantener columnas compactas */
+ }
+ 
  
 /* 1024px */
  @media screen and (max-width: 1024px){
@@ -770,3 +786,47 @@ table.dataTable tbody tr:hover {
       gap: 20px;
    }
  }
+
+ /* Estilo base para ambos botones */
+.btn-editar, .btn-eliminar, .btn-cancelar {
+   padding: 6px 12px;
+   margin: 2px;
+   font-size: 14px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   color: white;
+}
+
+/* Estilo específico para el botón de editar */
+.btn-editar {
+   background-color: #4CAF50; /* verde */
+}
+
+/* Estilo específico para el botón de eliminar */
+.btn-eliminar {
+   background-color: #f44336; /* rojo */
+}
+
+/* Efecto hover para el botón de editar */
+.btn-editar:hover {
+   background-color: yellow;
+   color: #000;
+}
+
+/* Efecto hover para el botón de eliminar */
+.btn-eliminar:hover {
+   background-color: yellow;
+   color: #000;
+}
+
+.btn-cancelar{
+   background-color: rgb(5, 124, 168);
+}
+
+
+.btn-cancelar:hover{
+   background-color: yellow;
+   color: #000;
+}
+

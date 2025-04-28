@@ -3,7 +3,6 @@ package com.proyecto.reportes.controllers.rest;
 import com.proyecto.reportes.models.DTO.ReporteActualizarEstadoDTO;
 import com.proyecto.reportes.models.DTO.ReporteCrearDTO;
 import com.proyecto.reportes.models.DTO.ReporteRespuestaDTO;
-import com.proyecto.reportes.models.Reporte;
 import com.proyecto.reportes.services.ReporteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,9 +51,16 @@ public class ReporteControlador {
 
     }
 
-    @PutMapping
-    public void modificarEstado(){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Integer> eliminarReporte(@PathVariable Integer id){
+        Integer idReporteEliminado = reporteServicio.eliminarReporte(id);
+        return ResponseEntity.status(HttpStatus.OK).body(idReporteEliminado);
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Integer> actualizarReporte(@PathVariable Integer id, @RequestBody ReporteCrearDTO reporteAct){
+        Integer idReporte = reporteServicio.actualizarReporte(id, reporteAct);
+        return ResponseEntity.status(HttpStatus.CREATED).body(idReporte);
     }
 
 

@@ -25,11 +25,33 @@ document.getElementById("formulario-reporte")
     .then(response => response.json())
     .then(data => {
         this.reset(); // Limpiar el formulario después de enviar
+        showPopupACT(data); // Mostrar el popup de éxito
         const reporteSeccion = document.getElementById("contact");
-        reporteSeccion.style.display = 'none'; // Mostrar la sección del formulario
         document.getElementById("tabla-usuario-reportes").scrollIntoView({
           behavior: "smooth"
         });
+
+        setTimeout(() => {
+            reporteSeccion.style.display = 'none'; 
+        }, 1000); 
     })
     .catch(error => console.error("Error:", error));
 });
+
+function showPopupACT(id) {
+    
+    const popup = document.getElementById("popup");
+
+    const message = popup.querySelector(".popup-message");
+
+    if (id == null) {
+        message.textContent = "Error al actualizar el estatus del reporte"; // Mensaje personalizado si lo necesitas
+    }
+    else{
+        message.textContent = `El reporte con id: ${id}, se ha actualizado su estatus correctamente`;
+    }
+    popup.showModal(); // Mostrar el popup
+    setInterval(() => {
+        popup.close(); // Cerrar el popup después de 3 segundos
+    }, 5000); // Cambia el tiempo según tus necesidades
+}

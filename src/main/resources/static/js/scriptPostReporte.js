@@ -30,35 +30,21 @@ document.getElementById("formulario-reporte").addEventListener("submit", functio
 
 function showPopup(id) {
     
-    const popup = document.getElementById("popup");
-    const overlay = document.getElementById("overlay");
-    const popupMessage = document.getElementById("popup-message");
+    const popup = document.getElementById("popup-crear");
+
+    const message = popup.querySelector(".popup-message");
 
     if (id == null) {
-        popupMessage.textContent = "Error al crear el reporte"; // Mensaje personalizado si lo necesitas
+        message.textContent = "Error al crear el reporte"; // Mensaje personalizado si lo necesitas
     }
     else{
-    popupMessage.textContent = `El reporte se ha creado un id ${id}`;
+    popupMessage.textContent = `El reporte se ha creado con el id:  ${id}`;
     }
-    popup.classList.add("active");
-    overlay.classList.add("active");
+    popup.showModal(); // Mostrar el popup
+    setInterval(() => {
+        popup.close(); // Cerrar el popup después de 3 segundos
+    }, 5000); // Cambia el tiempo según tus necesidades
 }
 
-function closePopup() {
-    const popup = document.getElementById("popup");
-    const overlay = document.getElementById("overlay");
 
-    popup.classList.remove("active");
-    overlay.classList.remove("active");
-}
-
-document.querySelectorAll("[data-close-button]").forEach(button => {
-    button.addEventListener("click", () => {
-        closePopup();  
-    });
-});
-
-document.getElementById("overlay").addEventListener("click", () => {
-    closePopup();  
-});
 

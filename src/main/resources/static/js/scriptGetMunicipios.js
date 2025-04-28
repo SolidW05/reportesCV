@@ -13,13 +13,16 @@ function obtenerMunicipios() {
         return response.json();
     })
     .then(data => {
-        const select = document.getElementById("municipio");
-        data.forEach(element => {
-            const option = document.createElement("option");
-            option.value = element.idMunicipio;
-            option.text = element.municipio;
-            select.appendChild(option);
+        const select = document.querySelectorAll(".municipio");
+        select.forEach(select => {
+            data.forEach(element => {
+                const option = document.createElement("option");
+                option.value = element.idMunicipio;
+                option.text = element.municipio;
+                select.appendChild(option);
+            });
         });
+
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);

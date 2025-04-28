@@ -9,7 +9,8 @@ public class ReporteRespuestaDTO {
     public ReporteRespuestaDTO(Integer idReporte, String descripcion, Reporte.EstadoReporte estado, LocalDate fechaReporte,
                                 byte[] foto,
                                String calle, String numero, String colonia, String codigoPostal, String municipio,
-                               String nombre, String autoridad, String servicio, String telefono, String observaciones) {
+                               String nombre, String autoridad, String servicio, String telefono, String observaciones,
+                                Integer idMunicipio, Integer idAutoridad ) {
         this.idReporte = idReporte;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -25,11 +26,8 @@ public class ReporteRespuestaDTO {
         this.servicio = servicio;
         this.telefono = telefono;
         this.observaciones = observaciones;
-    }
-    public ReporteRespuestaDTO(Integer idReporte, String descripcion) {
-        this.idReporte = idReporte;
-        this.descripcion = descripcion;
-
+        this.idMunicipio = idMunicipio;
+        this.idAutoridad = idAutoridad;
     }
     public Integer getIdReporte() {
         return idReporte;
@@ -151,7 +149,21 @@ public class ReporteRespuestaDTO {
         this.observaciones = observaciones;
     }
 
+    public Integer getIdMunicipio() {
+        return idMunicipio;
+    }
 
+    public void setIdMunicipio(Integer idMunicipio) {
+        this.idMunicipio = idMunicipio;
+    }
+
+    public Integer getIdAutoridad() {
+        return idAutoridad;
+    }
+
+    public void setIdAutoridad(Integer idAutoridad) {
+        this.idAutoridad = idAutoridad;
+    }
     private Integer idReporte;
     private String descripcion;
     private Reporte.EstadoReporte estado;
@@ -168,4 +180,6 @@ public class ReporteRespuestaDTO {
     private String servicio;
     private String telefono;
     private String observaciones;
+    private Integer idMunicipio;
+    private Integer idAutoridad;
 }
