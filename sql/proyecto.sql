@@ -27,6 +27,8 @@ GRANT SELECT, UPDATE, INSERT, DELETE ON proyecto.* TO usuarios2;
 -- -----------------------------------------------------
 -- Table `Proyecto`.`Usuarios`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyecto`.`usuarios` ;
+
 CREATE TABLE IF NOT EXISTS `proyecto`.`usuarios` (
   `idUsuarios` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(120) NOT NULL,
@@ -40,24 +42,29 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`usuarios` (
   UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE,
   UNIQUE INDEX `CURP_UNIQUE` (`CURP` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1000
+AUTO_INCREMENT = 1020
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
 -- Table `proyecto`.`municipios`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyecto`.`municipios` ;
+
 CREATE TABLE IF NOT EXISTS `proyecto`.`municipios` (
   `idMunicipio` INT NOT NULL AUTO_INCREMENT,
   `municipio` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idMunicipio`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 126
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
 -- Table `proyecto`.`autoridades`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyecto`.`autoridades` ;
+
 CREATE TABLE IF NOT EXISTS `proyecto`.`autoridades` (
   `idAutoridades` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `idUsuarios` INT UNSIGNED NOT NULL,
@@ -75,13 +82,15 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`autoridades` (
     FOREIGN KEY (`municipio`)
     REFERENCES `proyecto`.`municipios` (`idMunicipio`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1000
+AUTO_INCREMENT = 1011
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
 -- Table `proyecto`.`ubicacion`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyecto`.`ubicacion` ;
+
 CREATE TABLE IF NOT EXISTS `proyecto`.`ubicacion` (
   `idUbicacion` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `calle` VARCHAR(80) NOT NULL,
@@ -95,13 +104,15 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`ubicacion` (
     FOREIGN KEY (`municipio`)
     REFERENCES `proyecto`.`municipios` (`idMunicipio`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1000
+AUTO_INCREMENT = 1050
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
 -- Table `proyecto`.`reportes`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyecto`.`reportes` ;
+
 CREATE TABLE IF NOT EXISTS `proyecto`.`reportes` (
   `idReportes` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Descripcion` VARCHAR(200) NOT NULL,
@@ -126,9 +137,27 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`reportes` (
     FOREIGN KEY (`idUsuarios`)
     REFERENCES `proyecto`.`usuarios` (`idUsuarios`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1000
+AUTO_INCREMENT = 39
 DEFAULT CHARACTER SET = utf8mb3;
 
+USE `proyecto`;
+
+DELIMITER $$
+
+USE `proyecto`$$
+DROP TRIGGER IF EXISTS `proyecto`.`after_delete_reportes` $$
+USE `proyecto`$$
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `proyecto`.`after_delete_reportes`
+AFTER DELETE ON `proyecto`.`reportes`
+FOR EACH ROW
+BEGIN
+    DELETE FROM ubicacion WHERE idUbicacion = OLD.idUbicacion;
+END$$
+
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
