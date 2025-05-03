@@ -51,6 +51,15 @@ public class Ubicacion {
     public void setMunicipio(Municipio municipio) {
         this.municipio = municipio;
     }
+    public void setLatitud(Double latitud){
+        this.latitud = latitud;
+    }
+    public double getLongitud(){
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud){
+        this.longitud = longitud;}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,6 +76,15 @@ public class Ubicacion {
 
     @Column(nullable = false, length = 8)
     private String codigoPostal;
+        @Column(nullable = false)
+        private Double latitud;
+
+        @Column(nullable = false)
+        private Double longitud;
+
+        public Double getLatitud() {
+            return latitud;
+        }
 
     @ManyToOne
     @JoinColumn(name = "municipio")

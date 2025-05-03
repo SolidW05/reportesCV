@@ -46,13 +46,13 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getCurp() {
+   /* public String getCurp() {
         return curp;
     }
 
     public void setCurp(String curp) {
         this.curp = curp;
-    }
+    }*/
 
     public boolean isActivo(){
         return activo;
@@ -85,8 +85,8 @@ public class Usuario {
     @Column(nullable = false, length = 255)
     private String password;
 
-    @Column(nullable = false, unique = true, length = 18)
-    private String curp;
+   /* @Column(nullable = false, unique = true, length = 18)
+    private String curp;*/
     @Column (name = "activo")
     private boolean activo = false;
 

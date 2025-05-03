@@ -1,64 +1,85 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const container = document.querySelector(".container");
-    const btnSignIn = document.getElementById("btn-sign-in");
-    const btnSignUp = document.getElementById("btn-sign-up");
-    const userInput = document.getElementById("user");
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".container");
+  const btnSignIn = document.getElementById("btn-sign-in");
+  const btnSignUp = document.getElementById("btn-sign-up");
 
-    // Comprobar si estamos en móvil para manejar el diseño diferente
-    function checkMobile() {
-        return window.innerWidth <= 768;
-    }
+  const form = document.getElementById("formRegistro");
+  const mensajeExito = document.getElementById("registro-exitoso");
 
-    // Función para manejar el cambio entre formularios
-    function toggleForms() {
-        if (checkMobile()) {
-            // En móvil, mostramos/ocultamos los formularios según sea necesario
-            if (container.classList.contains("toggle")) {
-                container.classList.remove("toggle");
-            } else {
-                container.classList.add("toggle");
-            }
-        } else {
-            // En desktop, comportamiento original
-            if (btnSignIn === event.target) {
-                container.classList.remove("toggle");
-            } else {
-                container.classList.add("toggle");
-            }
-        }
-    }
+  // Alternar formularios (desktop y móvil)
+  function checkMobile() {
+    return window.innerWidth <= 768;
+  }
 
-    btnSignIn.addEventListener("click", function(event) {
-        event.preventDefault();
+  function toggleForms(event) {
+    if (checkMobile()) {
+      container.classList.toggle("toggle");
+    } else {
+      if (event.target === btnSignIn) {
         container.classList.remove("toggle");
-    });
-    
-    btnSignUp.addEventListener("click", function(event) {
-        event.preventDefault();
+      } else if (event.target === btnSignUp) {
         container.classList.add("toggle");
-    });
+      }
+    }
+  }
 
-    // Manejar el registro exitoso
-    const registroBtn = document.querySelector(".sign-up .button");
-    const mensajeExito = document.getElementById("registro-exitoso");
+  btnSignIn.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleForms(e);
+  });
 
-    registroBtn.addEventListener("click", function(event) {
-        event.preventDefault();
-        
-        // Mostrar mensaje de éxito
-        mensajeExito.style.display = "block";
-        
-        // Ocultar después de 3 segundos
-        setTimeout(() => {
+  btnSignUp.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleForms(e);
+  });
+
+  // Registro al backend
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const datos = {
+      nombre: document.getElementById("nombre").value,
+      email: document.getElementById("email").value,
+      password: document.getElementById("passwordC").value,
+      tipoUsuario: form.tipoUsuario.value
+    };
+
+    fetch("/api/usuarios/registro", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(datos)
+    })
+      .then(async (response) => {
+        const data = await response.json();
+
+        if (response.ok) {
+          mensajeExito.style.display = "block";
+          mensajeExito.textContent = "✅ Registro exitoso";
+          form.reset();
+
+          setTimeout(() => {
             mensajeExito.style.display = "none";
-        }, 3000);
-    });
-    
-    // Ajustar las vistas cuando la ventana cambia de tamaño
-    window.addEventListener('resize', function() {
-        if (checkMobile()) {
-            // Ajustes para móvil si es necesario
+          }, 3000);
+        } else {
+          if (data && data.error) {
+            alert("❌ " + data.error);
+          } else {
+            alert("❌ Error al registrar.");
+          }
         }
-    });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("❌ Ocurrió un error al registrar.");
+      });
+  });
+
+  // Reacción al redimensionar ventana (opcional si quieres ajustar visualmente)
+  window.addEventListener("resize", () => {
+    if (checkMobile()) {
+      // Puedes hacer ajustes adicionales aquí si deseas
+    }
+  });
 });
-  

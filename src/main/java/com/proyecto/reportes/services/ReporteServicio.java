@@ -85,7 +85,8 @@ public class ReporteServicio {
                 nuevoReporte.getCodigoPostal(),
                 municipio
         );
-
+        ubicacion.setLatitud(nuevoReporte.getLatitud());
+        ubicacion.setLongitud(nuevoReporte.getLongitud());
         ubicacion = ubicacionRepositorio.save(ubicacion);
 
         // creacion del reporte
@@ -116,6 +117,9 @@ public class ReporteServicio {
         ubicacion.setNumero(nuevoReporte.getNumero());
         ubicacion.setCodigoPostal(nuevoReporte.getCodigoPostal());
         ubicacion.setMunicipio(municipio);
+        ubicacion.setLatitud(nuevoReporte.getLatitud());  // <- USAR nuevoReporte AQUÍ
+        ubicacion.setLongitud(nuevoReporte.getLongitud());
+
 
         ubicacion = ubicacionRepositorio.save(ubicacion);
 

@@ -60,6 +60,21 @@ public class ReporteCrearDTO {
     public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
+    }
 
     public LocalDate getFecha() {
         return fecha;
@@ -99,9 +114,14 @@ public class ReporteCrearDTO {
     private String calle;
     private String numero;
     private String codigoPostal;
+    private Double latitud;
+    private Double longitud;
+
 
     //Propios del reporte
     private LocalDate fecha;
     private String descripcion;
+
+
 
 }

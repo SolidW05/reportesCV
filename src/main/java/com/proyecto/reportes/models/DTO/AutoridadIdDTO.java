@@ -1,6 +1,6 @@
 package com.proyecto.reportes.models.DTO;
 
-public class AutoridadIdDTO {
+public class   AutoridadIdDTO {
 
     public AutoridadIdDTO(Integer id, String autoridad) {
         this.id = id;
