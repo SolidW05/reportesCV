@@ -28,7 +28,6 @@
             rel="stylesheet"
             href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
     />
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
   </head>
   <body th:data-id="${usuario.id}">
@@ -420,6 +419,10 @@
               id="descripcion-act"
               placeholder="detalles"
             ></textarea>
+            <div id="map2" style="height: 400px; width: 100%; margin: 20px 0;"></div>
+            <input type="hidden" id="latitud-act" name="latitud" />
+            <input type="hidden" id="longitud-act" name="longitud" />
+
             <button type="submit" class="submit-button">Enviar</button>
           </form>
         </div>
@@ -452,6 +455,7 @@
       });
     </script>
     <script src="js/scriptActualizarReporte.js"></script>
+    <script src="js/mapaUbicacion2.js"></script>
     <script type="module" src="js/scriptGetReportes.js"></script>
     <script src="js/scriptGetMunicipios.js"></script>
     <script src="js/scriptGetAutoridades.js"></script>
@@ -459,6 +463,7 @@
     <script type="module" src="js/scripTablas.js"></script>
     <script src="js/scriptPostReporte.js"></script>
     <script src="js/mapaUbicacion.js"></script>
+
     <!-- Leaflet -->
     <script src="js/leaflet.js"></script>
 

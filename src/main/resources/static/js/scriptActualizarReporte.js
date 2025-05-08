@@ -1,3 +1,12 @@
+
+ document.addEventListener("DOMContentLoaded", () => {
+ window.map = L.map("map2").setView([20.6597, -103.3496], 10); // Vista inicial sobre Jalisco
+
+  // Capa base de OpenStreetMap
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; OpenStreetMap contributors',
+  }).addTo(window.map);});
+
 var idReporte;
 const seccion = document.getElementById('actualizacion');
 const tblUsr = document.getElementById('descripcion');
@@ -42,10 +51,17 @@ function llenarFormulario(data) {
     document.getElementById("codigoPostal-act").value = data.codigoPostal;
     document.getElementById("descripcion-act").value = data.descripcion;
 
+
     setTimeout(() => {
         const selectAutoridad = document.getElementById("autoridad-act");
         selectAutoridad.value = data.idAutoridad; // Asignar el valor de la autoridad
     }, 300); // Esperar 1 segundo antes de asignar el valor
+    const marcador = L.marker([data.latitud, data.longitud]).addTo(window.map);
+                  marcador.bindPopup(`<strong>Reporte #${data.id}</strong><br>${data.descripcion}`);
+               window.map.setView([data.latitud, data.longitud], 15);
+                document.getElementById("latitud-act").value = data.latitud;
+                document.getElementById("longitud-act").value = data.longitud;
+
 
 }
 
@@ -62,8 +78,11 @@ document.getElementById("formulario-actualizacion").addEventListener("submit", f
         codigoPostal: document.getElementById("codigoPostal-act").value,
         fecha: document.getElementById("fecha-act").value,
         descripcion: document.getElementById("descripcion-act").value,
-    };
+        latitud: document.getElementById("latitud-act").value,
+        longitud: document.getElementById("longitud-act").value
 
+    };
+    console.log(actualizacion)
     fetch(`http://localhost:7512/api/reporte/${idReporte}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

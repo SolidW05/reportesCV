@@ -11,6 +11,9 @@ document.getElementById("formulario-reporte").addEventListener("submit", functio
         codigoPostal: document.getElementById("codigoPostal").value,
         fecha: document.getElementById("fecha").value,
         descripcion: document.getElementById("descripcion").value,
+        latitud: document.getElementById("latitud").value,
+        longitud: document.getElementById("longitud").value
+
     };
 
     fetch(`http://localhost:7512/api/reporte`, {

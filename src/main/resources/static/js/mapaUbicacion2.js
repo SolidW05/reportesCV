@@ -1,23 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const map = L.map("map").setView([20.6597, -103.3496], 10); // Vista inicial sobre Jalisco
 
-  // Capa base de OpenStreetMap
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: '&copy; OpenStreetMap contributors',
-  }).addTo(map);
 
-  let marker;
+  window.marker = null;
 
   // Función para actualizar ubicación y campos del formulario
-  async function actualizarUbicacion(lat, lng) {
-    if (marker) {
-      marker.setLatLng([lat, lng]);
+  async function actualizarUbicacion2(lat, lng) {
+    if (window.marker) {
+      window.marker.setLatLng([lat, lng]);
     } else {
-      marker = L.marker([lat, lng]).addTo(map);
+      window.marker = L.marker([lat, lng]).addTo(window.map);
     }
 
-    document.getElementById("latitud").value = lat;
-    document.getElementById("longitud").value = lng;
+    document.getElementById("latitud-act").value = lat;
+    document.getElementById("longitud-act").value = lng;
 
     try {
       const response = await fetch(
@@ -25,18 +20,18 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       const data = await response.json();
 
-      document.getElementById("colonia").value =
+      document.getElementById("colonia-act").value =
         data.address.suburb ||
         data.address.neighbourhood ||
         data.address.city_district ||
         "No disponible";
 
-      document.getElementById("calle").value =
+      document.getElementById("calle-act").value =
         data.address.road ||
         data.address.street ||
         "No disponible";
 
-      document.getElementById("codigoPostal").value =
+      document.getElementById("codigoPostal-act").value =
         data.address.postcode || "No disponible";
 
       const municipioNombre =
@@ -46,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         data.address.county ||
         "No disponible";
 
-      const selectMunicipio = document.getElementById("municipio");
+      const selectMunicipio = document.getElementById("municipio-act");
       let municipioEncontrado = false;
 
       for (let option of selectMunicipio.options) {
@@ -69,27 +64,28 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Evento: click sobre el mapa
-map.on('click', function (e) {
+window.map.on('click', function (e) {
     const lat = e.latlng.lat;
     const lng = e.latlng.lng;
 
-    actualizarUbicacion(lat, lng);
+    actualizarUbicacion2(lat, lng);
 });
 
 
   // Control de búsqueda (geocoder)
+  const mapaP =
   L.Control.geocoder({
     defaultMarkGeocode: false,
   })
     .on("markgeocode", function (e) {
       const latlng = e.geocode.center;
-      map.setView(latlng, 16);
-      actualizarUbicacion(latlng.lat, latlng.lng);
+      window.map.setView(latlng, 16);
+      actualizarUbicacion2(latlng.lat, latlng.lng);
     })
-    .addTo(map);
+    .addTo(window.map);
 
   // Redirigir mapa según municipio seleccionado en el <select>
-  document.getElementById("municipio").addEventListener("change", async function () {
+  document.getElementById("municipio-act").addEventListener("change", async function () {
     const municipio = this.options[this.selectedIndex].text;
     if (!municipio) return;
 
@@ -102,8 +98,8 @@ map.on('click', function (e) {
       if (data.length > 0) {
         const lat = parseFloat(data[0].lat);
         const lng = parseFloat(data[0].lon);
-        map.setView([lat, lng], 14);
-        actualizarUbicacion(lat, lng);
+        window.map.setView([lat, lng], 14);
+        actualizarUbicacion2(lat, lng);
       } else {
         console.warn("No se encontró el municipio:", municipio);
       }

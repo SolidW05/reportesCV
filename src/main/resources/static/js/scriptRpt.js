@@ -1,4 +1,10 @@
+
 import { setIdReporte } from "./scriptActualizarEstado.js";
+ const mapa = L.map("mapa-reporte").setView([20.6597, -103.3496], 12); // Guadalajara
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "Map data © OpenStreetMap contributors"
+  }).addTo(mapa);
 
 $('#tabla-usuario tbody').on('click', 'tr', function () {
   const id = $(this).find('td').eq(0).text(); // Obtener el texto de la primera columna
@@ -45,5 +51,9 @@ function llenarFormulario(data) {
       })
       .join("");
       document.getElementById("observaciones").value = data.observaciones ?? "";
+        const marcador = L.marker([data.latitud, data.longitud]).addTo(mapa);
+              marcador.bindPopup(`<strong>Reporte #${data.id}</strong><br>${data.descripcion}`);
+           mapa.setView([data.latitud, data.longitud], 15);
+
 }
 
