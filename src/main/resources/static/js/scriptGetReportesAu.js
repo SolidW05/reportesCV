@@ -88,6 +88,7 @@ function obtenerTodosReportesPorAu(tablaID) {
             element.servicio,
             element.nombre,
             element.telefono
+
         ]));
 
         if (!tablaDT) {
