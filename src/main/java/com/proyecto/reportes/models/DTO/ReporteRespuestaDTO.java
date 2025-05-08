@@ -10,7 +10,7 @@ public class ReporteRespuestaDTO {
                                 byte[] foto,
                                String calle, String numero, String colonia, String codigoPostal, String municipio,
                                String nombre, String autoridad, String servicio, String telefono, String observaciones,
-                                Integer idMunicipio, Integer idAutoridad ) {
+                                Integer idMunicipio, Integer idAutoridad, Double latitud, Double longitud ) {
         this.idReporte = idReporte;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -28,7 +28,14 @@ public class ReporteRespuestaDTO {
         this.observaciones = observaciones;
         this.idMunicipio = idMunicipio;
         this.idAutoridad = idAutoridad;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
+
+    public ReporteRespuestaDTO() {
+
+    }
+
     public Integer getIdReporte() {
         return idReporte;
     }
@@ -160,6 +167,21 @@ public class ReporteRespuestaDTO {
     public Integer getIdAutoridad() {
         return idAutoridad;
     }
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
+    }
 
     public void setIdAutoridad(Integer idAutoridad) {
         this.idAutoridad = idAutoridad;
@@ -182,4 +204,7 @@ public class ReporteRespuestaDTO {
     private String observaciones;
     private Integer idMunicipio;
     private Integer idAutoridad;
+    private Double latitud;
+    private Double longitud;
+
 }

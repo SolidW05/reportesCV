@@ -19,6 +19,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <link rel="stylesheet" href="css/leaflet.css" />
 
   </head>
   <body th:data-id="${usuario.id}">
@@ -191,6 +192,9 @@
                     id="observaciones"
                     placeholder="Observaciones"
             ></textarea>
+            <h2 class="section-title">Ubicación del Reporte</h2>
+            <div id="mapa-reporte" style="height: 400px; width: 100%; margin-top: 20px;"></div>
+
             <button type="submit" class="submit-button">Enviar</button>
           </form>
         </div>
@@ -233,7 +237,7 @@
       input::placeholder:disabled {
         color: #bbb; /* color para el placeholder de inputs deshabilitados */
       }
-    
+
       input:disabled {
         background-color: rgba(0, 0, 0, 0.5);
         color: #888;
@@ -260,5 +264,10 @@
     <script type="module" src="js/scriptGetReportesAu.js"></script>
     <script type="module" src="js/scripTablas.js"></script>
     <script type="module" src="js/scriptActualizarEstado.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/mapaUbicacionReporte.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   </body>
 </html>
