@@ -159,6 +159,193 @@ END$$
 
 DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS CrearAutoridad;
+CREATE PROCEDURE CrearAutoridad(
+    IN Autoridad VARCHAR(120),
+    IN Servicio VARCHAR(45),
+    IN Telefono VARCHAR(10),
+    IN Municipio VARCHAR(120),
+    IN correoEncargado VARCHAR(255)
+)
+BEGIN
+    DECLARE municipioID INT;
+    DECLARE encargadoID INT;
+    DECLARE tipo VARCHAR(20);
+
+    SELECT idUsuarios, tipo_usuario
+    INTO encargadoID, tipo
+    FROM usuarios
+    WHERE email = correoEncargado
+    LIMIT 1;
+
+
+    IF tipo = 'usuario' THEN
+        UPDATE usuarios SET tipo_usuario = 'autoridad'
+        WHERE email = correoEncargado;
+    END IF;
+
+
+    SELECT idMunicipio
+    INTO municipioID
+    FROM municipios
+    WHERE municipio LIKE CONCAT('%', Municipio, '%')
+    LIMIT 1;
+
+    INSERT INTO autoridades (
+        idUsuarios, Autoridad, Servicio, Telefono, municipio
+    ) VALUES (
+        encargadoID, Autoridad, Servicio, Telefono, municipioID
+    );
+END //
+
+DELIMITER ;
+
+
+
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS CambioEncargado;
+
+CREATE PROCEDURE CambioEncargado(IN idAutoridad INT, IN NuevoEncargadoEmail VARCHAR(255))
+BEGIN
+    DECLARE filas INT;
+    DECLARE antiguoEncargadoID INT;
+    DECLARE encargadoID INT;
+    DECLARE tipo VARCHAR(20);
+
+
+    SELECT idUsuarios, tipo_usuario
+    INTO encargadoID, tipo
+    FROM usuarios
+    WHERE email = NuevoEncargadoEmail
+    LIMIT 1;
+
+
+    IF tipo = 'usuario' THEN
+        UPDATE usuarios SET tipo_usuario = 'autoridad'
+        WHERE email = NuevoEncargadoEmail;
+    END IF;
+
+    SELECT idUsuarios INTO antiguoEncargadoID
+    FROM autoridades
+    WHERE idAutoridades = idAutoridad;
+
+    UPDATE Autoridades SET idUsuarios = encargadoID
+    WHERE idAutoridades = idAutoridad;
+
+
+    SELECT COUNT(*) INTO filas
+    FROM autoridades
+    WHERE idUsuarios = antiguoEncargadoID;
+
+
+    IF filas = 0 THEN
+        UPDATE usuarios SET tipo_usuario = 'usuario'
+        WHERE idUsuarios = antiguoEncargadoID;
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+DELIMITER //
+
+DROP FUNCTION IF EXISTS reportesPorUsuario;
+CREATE FUNCTION reportesPorUsuario(usuarioID INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE total INT;
+
+    SELECT COUNT(*) INTO total
+    FROM reportes
+    WHERE idUsuarios = usuarioID;
+
+    RETURN total;
+END //
+
+DELIMITER ;
+
+
+
+
+DELIMITER //
+DROP FUNCTION IF EXISTS contarReportesEntreFechas;
+CREATE FUNCTION contarReportesEntreFechas(fechaInicio DATE, fechaFin DATE)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE total INT;
+
+    SELECT COUNT(*) INTO total
+    FROM reportes
+    WHERE Fecha_Reporte BETWEEN fechaInicio AND fechaFin;
+
+    RETURN total;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+DROP FUNCTION IF EXISTS reportesPorAutoridad;
+CREATE FUNCTION reportesPorAutoridad(autoridadID INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE total INT;
+
+    SELECT COUNT(*) INTO total
+    FROM reportes
+    WHERE idUsuarios = usuarioID;
+
+    RETURN total;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+DROP FUNCTION IF EXISTS contarPorEstado;
+CREATE FUNCTION contarPorEstado(estadoReporte VARCHAR(50))
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE total INT;
+
+    SELECT COUNT(*) INTO total
+    FROM reportes
+    WHERE Estado = estadoReporte;
+
+    RETURN total;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+DROP FUNCTION IF EXISTS diasDesdeReporte;
+CREATE FUNCTION diasDesdeReporte(idReporte INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE fechaReporte DATE;
+    DECLARE dias INT;
+
+    SELECT Fecha_Reporte INTO fechaReporte
+    FROM reportes
+    WHERE idReportes = idReporte;
+
+    SET dias = DATEDIFF(CURDATE(), fechaReporte);
+
+    RETURN dias;
+END //
+
+DELIMITER ;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
