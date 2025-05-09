@@ -139,6 +139,7 @@
  .hero-section{
    min-height: 100vh;
    background: var(--primary-color);
+     padding-top: 80px;
  }
 
  .hero-section .section-content{
@@ -828,5 +829,18 @@ table.dataTable tbody tr:hover {
 .btn-cancelar:hover{
    background-color: yellow;
    color: #000;
+}
+#map-container {
+  width: 100%;
+  max-width: 800px; /* opcional */
+  margin: 0 auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+  z-index: 0;
 }
 

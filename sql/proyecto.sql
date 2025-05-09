@@ -35,12 +35,10 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`usuarios` (
   `tipo_usuario` ENUM('usuario', 'autoridad') NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
-  `CURP` VARCHAR(18) NOT NULL,
   `activo` TINYINT(1) NULL DEFAULT NULL,
   `token_Verificacion` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idUsuarios`),
-  UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `CURP_UNIQUE` (`CURP` ASC) VISIBLE)
+  UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1020
 DEFAULT CHARACTER SET = utf8mb3;

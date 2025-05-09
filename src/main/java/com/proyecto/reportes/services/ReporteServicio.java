@@ -13,6 +13,7 @@ import com.proyecto.reportes.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,28 @@ public class ReporteServicio {
     public List<ReporteRespuestaDTO> reportesLimpios(){
         return reporteRepositorio.obtenerReportesReducidos();
     }
+  /* public List<ReporteRespuestaDTO> reportesLimpios() {
+       List<Reporte> reportes = reporteRepositorio.findAll();  // Obtener todos los reportes
+       List<ReporteRespuestaDTO> reporteRespuestaDTOs = new ArrayList<>();
+
+       for (Reporte reporte : reportes) {
+           ReporteRespuestaDTO dto = new ReporteRespuestaDTO();
+           dto.setIdReporte(reporte.getIdReporte());
+           dto.setDescripcion(reporte.getDescripcion());
+           dto.setEstado(reporte.getEstado());
+
+           // Verifica si la ubicación está disponible y luego asigna las coordenadas
+           if (reporte.getUbicacion() != null) {
+               dto.setLatitud(reporte.getUbicacion().getLatitud());
+               dto.setLongitud(reporte.getUbicacion().getLongitud());
+           }
+
+           reporteRespuestaDTOs.add(dto);
+       }
+
+       return reporteRespuestaDTOs;
+   }*/
+
 
     public List<ReporteRespuestaDTO> reportesPorUsuario(Integer idUsuario){
         return reporteRepositorio.obtenerReportesPorUsuario(idUsuario);
@@ -85,7 +108,8 @@ public class ReporteServicio {
                 nuevoReporte.getCodigoPostal(),
                 municipio
         );
-
+        ubicacion.setLatitud(nuevoReporte.getLatitud());
+        ubicacion.setLongitud(nuevoReporte.getLongitud());
         ubicacion = ubicacionRepositorio.save(ubicacion);
 
         // creacion del reporte
@@ -116,6 +140,9 @@ public class ReporteServicio {
         ubicacion.setNumero(nuevoReporte.getNumero());
         ubicacion.setCodigoPostal(nuevoReporte.getCodigoPostal());
         ubicacion.setMunicipio(municipio);
+        ubicacion.setLatitud(nuevoReporte.getLatitud());  // <- USAR nuevoReporte AQUÍ
+        ubicacion.setLongitud(nuevoReporte.getLongitud());
+
 
         ubicacion = ubicacionRepositorio.save(ubicacion);
 

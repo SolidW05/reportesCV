@@ -25,10 +25,10 @@ public class UsuarioServicio {
    public void registrarUsuario(UsuarioRegistroDTO dto){
        Usuario usuario = new Usuario();
        usuario.setNombre(dto.getNombre());
-       usuario.setEmail(dto.getCorreo());
+       usuario.setEmail(dto.getEmail());
        usuario.setPassword(dto.getPassword());
        usuario.setTokenVerificacion(UUID.randomUUID().toString());
-       usuario.setCurp(dto.getCurp());
+       //   usuario.setCurp(dto.getCurp());
 
 
        usuarioRepositorio.save(usuario);

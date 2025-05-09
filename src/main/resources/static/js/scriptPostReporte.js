@@ -11,6 +11,9 @@ document.getElementById("formulario-reporte").addEventListener("submit", functio
         codigoPostal: document.getElementById("codigoPostal").value,
         fecha: document.getElementById("fecha").value,
         descripcion: document.getElementById("descripcion").value,
+        latitud: document.getElementById("latitud").value,
+        longitud: document.getElementById("longitud").value
+
     };
 
     fetch(`http://localhost:7512/api/reporte`, {
@@ -38,7 +41,7 @@ function showPopup(id) {
         message.textContent = "Error al crear el reporte"; // Mensaje personalizado si lo necesitas
     }
     else{
-    popupMessage.textContent = `El reporte se ha creado con el id:  ${id}`;
+    message.textContent = `El reporte se ha creado con el id:  ${id}`;
     }
     popup.showModal(); // Mostrar el popup
     setInterval(() => {

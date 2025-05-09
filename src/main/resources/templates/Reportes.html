@@ -19,6 +19,16 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <!-- Leaflet CSS y JS -->
+    <link rel="stylesheet" href="css/leaflet.css" />
+
+
+    <!-- Geocoder para buscar direcciones -->
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
+    />
+
   </head>
   <body th:data-id="${usuario.id}">
     <header>
@@ -178,6 +188,15 @@
               id="descripcion"
               placeholder="detalles"
             ></textarea>
+            <h2>Selecciona una ubicación en el mapa</h2>
+            <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div>
+
+            <!-- Coordenadas ocultas -->
+            <input type="hidden" id="latitud" name="latitud" />
+            <input type="hidden" id="longitud" name="longitud" />
+
+
+
             <button type="submit" class="submit-button">Enviar</button>
           </form>
         </div>
@@ -400,6 +419,10 @@
               id="descripcion-act"
               placeholder="detalles"
             ></textarea>
+            <div id="map2" style="height: 400px; width: 100%; margin: 20px 0;"></div>
+            <input type="hidden" id="latitud-act" name="latitud" />
+            <input type="hidden" id="longitud-act" name="longitud" />
+
             <button type="submit" class="submit-button">Enviar</button>
           </form>
         </div>
@@ -431,12 +454,28 @@
         });
       });
     </script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="js/scriptActualizarReporte.js"></script>
+    <script src="js/mapaUbicacion2.js"></script>
     <script type="module" src="js/scriptGetReportes.js"></script>
     <script src="js/scriptGetMunicipios.js"></script>
     <script src="js/scriptGetAutoridades.js"></script>
     <script src="js/scriptGetServicios.js"></script>
     <script type="module" src="js/scripTablas.js"></script>
     <script src="js/scriptPostReporte.js"></script>
+    <script src="js/mapaUbicacion.js"></script>
+    <script src="js/scriptPgs.js"></script>
+
+
+    <!-- Leaflet -->
+    <script src="js/leaflet.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Geocoder -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+
   </body>
 </html>
