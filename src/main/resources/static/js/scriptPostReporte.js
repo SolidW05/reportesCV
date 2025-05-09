@@ -41,7 +41,7 @@ function showPopup(id) {
         message.textContent = "Error al crear el reporte"; // Mensaje personalizado si lo necesitas
     }
     else{
-    popupMessage.textContent = `El reporte se ha creado con el id:  ${id}`;
+    message.textContent = `El reporte se ha creado con el id:  ${id}`;
     }
     popup.showModal(); // Mostrar el popup
     setInterval(() => {
