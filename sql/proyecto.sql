@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`usuarios` (
   PRIMARY KEY (`idUsuarios`),
   UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1020
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -54,7 +54,6 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`municipios` (
   `municipio` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idMunicipio`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 126
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -80,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`autoridades` (
     FOREIGN KEY (`municipio`)
     REFERENCES `proyecto`.`municipios` (`idMunicipio`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1011
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -96,13 +95,15 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`ubicacion` (
   `colonia` VARCHAR(45) NOT NULL,
   `codigoPostal` VARCHAR(8) NOT NULL,
   `municipio` INT NULL DEFAULT NULL,
+  `latitud` DECIMAL(9,6) NULL DEFAULT NULL,
+  `longitud` DECIMAL(9,6) NULL DEFAULT NULL,
   PRIMARY KEY (`idUbicacion`),
   INDEX `fk_ubicacion_municipio` (`municipio` ASC) VISIBLE,
   CONSTRAINT `fk_ubicacion_municipio`
     FOREIGN KEY (`municipio`)
     REFERENCES `proyecto`.`municipios` (`idMunicipio`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1050
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -135,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `proyecto`.`reportes` (
     FOREIGN KEY (`idUsuarios`)
     REFERENCES `proyecto`.`usuarios` (`idUsuarios`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 39
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8mb3;
 
 USE `proyecto`;
